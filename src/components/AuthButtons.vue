@@ -1,16 +1,17 @@
 <template>
 	<div>
 		<v-btn
-			to="/auth/login"
-			outlined
+			to="/login"
+			elevation="0"
 			class="ma-2"
 		>
 			Inciar sesión
 		</v-btn>
 
 		<v-btn
-			to="/auth/register"
+			to="/register"
 			class="ma-2"
+			outlined
 			color="primary">
 			Registrarse
 		</v-btn>
@@ -18,9 +19,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
 	name: 'AlumniAuthButtons',
-
+	computed: {
+		...mapState(['token', 'user']),
+		size () {
+			const size = {xs:'x-small',sm:'small',lg:'large',xl:'x-large'}[this.$vuetify.breakpoint.name];
+			return size ? { [size]: true } : {}
+		}
+	}
 }
 </script>
 

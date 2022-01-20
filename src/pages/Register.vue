@@ -7,7 +7,7 @@
 
 					<!-- Datos basicos de la cuenta -->
 					<v-row>
-						<v-col cols="6">
+						<v-col cols="12" md="6">
 							<v-select
 								outlined
 								dense
@@ -19,22 +19,22 @@
 							</v-select>
 						</v-col>
 
-						<v-col cols="6">
+						<v-col cols="12" md="6">
 							<v-text-field outlined dense label="Numero de identificación"></v-text-field>
 						</v-col>
 
 
-						<v-col cols="6">
+						<v-col cols="12" md="6">
 							<v-text-field outlined dense label="Nombres"></v-text-field>
 						</v-col>
-						<v-col cols="6">
+						<v-col cols="12" md="6">
 							<v-text-field outlined dense label="Apellidos"></v-text-field>
 						</v-col>
 
-						<v-col cols="6">
+						<v-col cols="12" md="6">
 							<v-text-field outlined dense label="Correo electronico"></v-text-field>
 						</v-col>
-						<v-col cols="6">
+						<v-col cols="12" md="6">
 							<v-text-field outlined dense label="Contraseña"></v-text-field>
 						</v-col>
 
@@ -54,11 +54,11 @@
 
 					<v-row v-if="tipoCuenta === 'Alumni'">
 
-						<v-col cols="6">
+						<v-col cols="12" md="6">
 							<v-select outlined dense label="Carrera cursada" :items="['Ingeniria en software']"></v-select>
 						</v-col>
 
-						<v-col cols="6">
+						<v-col cols="12" md="6">
 							<v-menu
 								ref="menu"
 								v-model="menu"
@@ -105,11 +105,11 @@
 							</v-menu>
 						</v-col>
 
-						<v-col cols="6">
+						<v-col cols="12" md="6">
 							<v-select outlined dense label="Provincia" :items="['Los Rios', 'Manabi']"></v-select>
 						</v-col>
 
-						<v-col cols="6">
+						<v-col cols="12" md="6">
 							<v-select outlined dense label="Ciudad" :items="['Quevedo', 'Buena fe']"></v-select>
 						</v-col>
 
@@ -117,13 +117,13 @@
 					</v-row >
 
 					<v-row v-if="tipoCuenta === 'Empresa'">
-						<v-col cols="6">
+						<v-col cols="12">
 							<v-text-field outlined dense label="Nombre"></v-text-field>
 						</v-col>
 					</v-row>
 
 					<v-row v-if="tipoCuenta === 'Administrador'">
-						<v-col cols="6">
+						<v-col cols="12">
 							<v-text-field outlined dense label="Area"></v-text-field>
 						</v-col>
 					</v-row>

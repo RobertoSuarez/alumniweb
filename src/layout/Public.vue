@@ -7,7 +7,7 @@
 
 			<v-toolbar-title>
 				<div class="d-flex align-center">
-					<router-link to="/">
+					<router-link :to="{name: 'feed'}">
 						<v-img
 							alt="UTEQ Logo"
 							class="shrink mx-3"
@@ -29,14 +29,20 @@
 			<router-view></router-view>
 		</v-main>
 
-		<v-footer></v-footer>
+		<TheFooter></TheFooter>
 	</v-app>
 </template>
 
 <script>
 import AlumniAuthButtons from '../components/AuthButtons.vue'
+import TheFooter from '../components/TheFooter.vue'
+import { mapState } from 'vuex'
+
 export default {
-	components: { AlumniAuthButtons },
+	components: { AlumniAuthButtons, TheFooter },
+	computed: {
+		...mapState(['token'])
+	}
 }
 </script>
 
