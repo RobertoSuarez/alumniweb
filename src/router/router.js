@@ -4,8 +4,12 @@ import Incio from '../pages/Inicio'
 import Public from '../layout/Public'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
-import Feed from '../pages/Feed'
 import store from '../store'
+import BaseEmpleos from '../pages/BaseEmpleos'
+import Noticias from '../pages/BaseNoticias'
+import Empresas from '../pages/BaseEmpresa'
+import Perfil from '../pages/BasePerfil'
+import BasePublicarEmpleo from '../pages/BasePublicarEmpleo'
 
 const router = new VueRouter({
     mode: 'history',
@@ -41,9 +45,30 @@ const router = new VueRouter({
 					},
 					children: [
 							{
-									path: '',
-									name: 'feed',
-									component: Feed
+								path: '',
+								name: 'Ofertas Laborales',
+								component: BaseEmpleos
+							},
+							{
+								path: 'noticias',
+								name: 'noticias',
+								component: Noticias,
+							},
+							{
+								path: 'empresas',
+								name: 'empresas',
+								component: Empresas,
+							},
+							{
+								path: '/perfil/:iduser',
+								name: 'perfil',
+								component: Perfil,
+								props: true
+							},
+							{
+								path: 'publicar_empleo',
+								name: 'publicar empleo',
+								component: BasePublicarEmpleo
 							}
 					]
 			},
@@ -53,24 +78,24 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
 	const { token } = store.state
 
+	// si no requiere de autenticación y ya inicio sesion,
+	// se lo redirige a la pagina princial donde esta las ofertas laborales
 	if (!to.matched.some(record => record.meta.requiresAuth) && token) {
 		next({
-			name: 'feed'
+			name: 'Ofertas Laborales'
 		})
 	}
 
-
-	if (to.matched.some(record => record.meta.requiresAuth)) {
-		if (!token) {
-			next({
-				name: 'main'
-			})
-		} else{
-			next()
-		}
-	} else {
-		next()
+	// si se requiere autenticación y no tiene un token, se lo
+	// redirige a la pagina de main, para ver el login, o registrarse
+	if (to.matched.some(record => record.meta.requiresAuth) && !token) {
+		next({
+			name: 'main'
+		})
 	}
+
+	// si todo va bien seguimos sin problema
+	next()
 
 })
 

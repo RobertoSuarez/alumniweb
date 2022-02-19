@@ -1,32 +1,39 @@
 <template>
 	<v-app>
 		<v-app-bar
-			elevation="4"
 			app
+			color="white"
+			elevate-on-scroll
 		>
+			<v-container class="d-flex align-center">
 
-			<v-toolbar-title>
-				<div class="d-flex align-center">
-					<router-link :to="{name: 'feed'}">
-						<v-img
-							alt="UTEQ Logo"
-							class="shrink mx-3"
-							contain
-							src="@/assets/uteqlogo.png"
-							width="40"
-						/>
-					</router-link>
-					<span class="text-h5 d-none d-md-flex">Universidad Técnica Estatal de Quevedo</span>
-				</div>
-			</v-toolbar-title>
+				<span class="text-h4 mr-5">Alumni UTEQ</span>
 
-			<v-spacer></v-spacer>
+				<v-btn class="mx-1" text small>Noticias</v-btn>
+				<v-btn class="mx-1" text small>Ofertas laborales</v-btn>
+				<v-btn class="mx-1" text small>Empresas</v-btn>
 
-			<AlumniAuthButtons></AlumniAuthButtons>
+
+				<v-spacer></v-spacer>
+
+				<v-btn color="primary" dark @click="abrirModal('login')">Inciar Sesión</v-btn>
+
+			</v-container>
+
+
 		</v-app-bar>
 
+		<v-overlay
+			@click="clickOverlay"
+			:value="overlay"
+			:dark="false"
+		>
+			<TheLogin v-if="modal === 'login'" :registrar="abrirModal" ></TheLogin>
+			<TheRegister v-if="modal === 'registrar'" :abrirModal="abrirModal"></TheRegister>
+		</v-overlay>
+
 		<v-main>
-			<router-view></router-view>
+			<router-view @registrar="abrirModal('registrar')"></router-view>
 		</v-main>
 
 		<TheFooter></TheFooter>
@@ -34,12 +41,36 @@
 </template>
 
 <script>
-import AlumniAuthButtons from '../components/AuthButtons.vue'
 import TheFooter from '../components/TheFooter.vue'
+import TheLogin from '../components/TheLogin.vue'
+import TheRegister from '../components/TheRegister.vue'
+
 import { mapState } from 'vuex'
 
 export default {
-	components: { AlumniAuthButtons, TheFooter },
+	components: { TheFooter, TheLogin, TheRegister },
+	data() {
+		return {
+			overlay: false,
+			modal: 'login',
+		}
+	},
+	methods: {
+		abrirModal(tipo) {
+			this.modal = tipo
+			this.overlay = true
+		},
+		cerrarModal() {
+			this.overlay = false
+			console.log('Modal cerrado')
+		},
+		clickOverlay(e) {
+			if (e.target.className === 'v-overlay__scrim') {
+				this.overlay = false
+			}
+
+		}
+	},
 	computed: {
 		...mapState(['token'])
 	}

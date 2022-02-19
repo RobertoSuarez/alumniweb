@@ -1,44 +1,26 @@
 <template>
-	<v-footer>
-		<v-container>
+	<v-footer class="footer-contenedor d-flex flex-column" >
 
-			<v-row >
-				<v-col cols="4">
-					<div class="text-subtitle-2">Alumni UTEQ</div>
-					<div class="text-caption">Ecuador - Quevedo</div>
 
-					<div class="mt-4">
-						<v-btn href="https://www.uteq.edu.ec/" target="_blank" class="mx-2" icon>
-							<div class="d-flex align-center">
-								<v-img
-									alt="UTEQ Logo"
-									contain
-									src="@/assets/uteqlogo.png"
-									width="20"
-								/>
-							</div>
-						</v-btn>
+			<div class="d-flex flex-row my-5">
+					<v-btn href="https://www.facebook.com" target="_blank" class="mx-5" color="white" fab small>
+						<v-icon size="25" color="#3b5998">fab fa-facebook-square</v-icon>
+					</v-btn>
 
-						<v-btn href="https://www.facebook.com" target="_blank" class="mx-2" icon>
-							<v-icon size="20" color="#3b5998">fab fa-facebook</v-icon>
-						</v-btn>
+					<v-btn href="https://ec.linkedin.com/" target="_blank" class="mx-5" color="white" fab small>
+							<v-icon size="25" color="#0e76a8">fab fa-linkedin</v-icon>
+					</v-btn>
 
-						<v-btn href="https://ec.linkedin.com/" target="_blank" class="mx-2" icon>
-								<v-icon size="20" color="#0e76a8">fab fa-linkedin-in</v-icon>
-						</v-btn>
+					<v-btn href="https://www.tiktok.com/es/" target="_blank" class="mx-5" color="white" fab small>
+							<v-icon size="25" color="#000">fas fa-globe</v-icon>
+					</v-btn>
+			</div>
 
-						<v-btn href="https://www.tiktok.com/es/" target="_blank" class="mx-2" icon>
-								<v-icon size="20" color="#000">fab fa-tiktok</v-icon>
-						</v-btn>
+			<v-divider dark style="width: 100%"></v-divider>
 
-					</div>
-				</v-col>
-
-				<v-col cols="4">segun</v-col>
-				<v-col cols="4">tercero</v-col>
-
-			</v-row>
-		</v-container>
+			<span class="text-center grey--text text--lighten-2 my-5">
+				© 2022 Universidad Técnica Estatal de Quevedo derechos reservados
+			</span>
 
 
 		</v-footer>
@@ -50,8 +32,9 @@ export default {
 }
 </script>
 
-<style>
-	.alumni-footer {
-		height: 200px;
+<style scoped>
+	.footer-contenedor {
+		padding-top: 5em;
+		background: #1B1B1B !important;
 	}
 </style>

@@ -1,32 +1,28 @@
 <template>
-	<v-card elevation="3" class="my-5">
-		<v-list-item three-line>
-			<v-list-item-avatar
-        tile
-        size="80"
-        color="grey"
-      ></v-list-item-avatar>
+	<v-hover v-slot="{ hover }">
+		<v-card :elevation="hover ? 10 : 2" class="my-3 transition-swing">
+			<v-list-item three-line>
 
-			<v-list-item-content>
-				<div class="text-overline mb-4">
-					Tipo de cuenta: {{ oferta.Usuario.tipoUsuario.tipo }}
-				</div>
-				<v-list-item-title class="text-h5 mb-1">
-					{{ oferta.titulo }}
-				</v-list-item-title>
-				<v-list-item-subtitle>
-					{{ oferta.descripcion }}
-				</v-list-item-subtitle>
-			</v-list-item-content>
+				<v-list-item-avatar
+						tile
+						size="80"
+						color="grey"
+				>
+					<v-img src="/empresa.jfif"></v-img>
+				</v-list-item-avatar>
 
-		</v-list-item>
+				<v-list-item-content>
+					<v-list-item-title class="text-h6 mb-1">
+						<router-link class="text-decoration-none" :to="{name: 'oferta', params: { idoferta: '1' }}">{{oferta.titulo}}</router-link>
+					</v-list-item-title>
+					<v-list-item-subtitle>{{oferta.usuario.nombres}}</v-list-item-subtitle>
+					<v-list-item-subtitle>{{oferta.ciudad}} ({{oferta.tipoEmpleo}} - {{oferta.jornada}})</v-list-item-subtitle>
 
-		<v-card-actions>
-			<v-spacer></v-spacer>
-			<v-btn outlined color="primary">Ver</v-btn>
-		</v-card-actions>
+				</v-list-item-content>
 
-	</v-card>
+			</v-list-item>
+		</v-card>
+	</v-hover>
 </template>
 
 <script>

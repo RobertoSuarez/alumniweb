@@ -1,11 +1,35 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../plugins/axios'
+import empleos from './empleos'
 
 Vue.use(Vuex)
 
-const token = 'tooken'
+const token = 'token'
 const user = 'user'
+
+const moduleA = {
+	namespaced: true,
+	state: () => ({
+		contador: 5
+	}),
+	mutations: {
+		incrementar(state) {
+			state.contador++
+		}
+	},
+	actions: {
+		incrementarContador({ state, commit }) {
+			commit('incrementar')
+			console.log(state.contador)
+		}
+
+	},
+	getters: {
+
+	}
+}
+
 
 export default new Vuex.Store({
   state: {
@@ -43,6 +67,13 @@ export default new Vuex.Store({
 			commit('clear_token_user')
 		}
   },
+	getters: {
+		getURLAvatar(state) {
+			return axios.defaults.baseURL + '/users/avatar/' + state.user.urlAvatar
+		}
+	},
   modules: {
+		a: moduleA,
+		empleos: empleos
   }
 })
