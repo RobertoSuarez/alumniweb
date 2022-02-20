@@ -15,7 +15,7 @@
 				</v-text-field>
 			</v-col>
 			<v-col  cols="2" md="2" class="d-flex justify-center">
-				<v-btn type="submit" color="primary" block>Buscar</v-btn>
+				<v-btn type="submit"  dark block>Buscar</v-btn>
 			</v-col>
 		</v-row>
 	</v-form>
@@ -56,6 +56,6 @@ export default {
 
 <style scoped>
 	.contenedor {
-		width: 50em;
+		width: 100%;
 	}
 </style>

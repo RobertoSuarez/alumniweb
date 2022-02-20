@@ -2,22 +2,21 @@
 	<v-container>
 		<v-row>
 			<v-col cols="12" sm="12" md="8">
-				<v-card class="mb-5 pb-5" >
-					<v-sheet color="primary" height="10em" class="mb-13">
+				<v-card class="mb-5 pb-5" style="position: relative;">
+					<v-img src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg" height="13em" class="mb-13">
 
-						<v-card-title class="px-10">
-							<v-avatar size="150" class="avatar" >
-								<v-img
+					</v-img>
 
-									alt="usuario"
-									:src="axios.defaults.baseURL+'/users/avatar/'+ usuario.urlAvatar"
-								>
-								</v-img>
-							</v-avatar>
 
-						</v-card-title>
+					<v-avatar size="150" class="p-avatar avatar">
+						<v-img
+							alt="usuario"
+							:src="getURLAvatar"
+						>
+						</v-img>
+					</v-avatar>
 
-					</v-sheet>
+
 
 					<v-card-text class="black--text pl-10">
 						<p class="my-0 text-h4">{{ usuario.nombres }} {{ user.apellidos}}</p>
@@ -95,7 +94,7 @@ export default {
 	computed: {
 		...mapState(['token', 'user']),
 		getURLAvatar() {
-			return this.axios.defaults.baseURL+'/users/avatar/'+ this.usuario.urlAvatar
+			return this.axios.defaults.baseURL+'/users/avataraws/'+ this.usuario.urlAvatar
 		}
 	}
 }
@@ -105,7 +104,11 @@ export default {
 
 .avatar {
 	border: solid 4px white;
+}
+
+.p-avatar {
 	position: absolute;
-	margin-top: 12em;
+	top: 7em;
+	left: 2.5em;
 }
 </style>

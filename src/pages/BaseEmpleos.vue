@@ -1,5 +1,6 @@
 <template>
 		<v-container>
+			<BuscadorBarra ></BuscadorBarra>
 			<v-row class="mt-2">
 
 				<v-col sm="12" md="3">
@@ -45,7 +46,7 @@
 				</v-col>
 
 				<v-col sm="12" md="9">
-					<p class="text-h6">Empleos encontrados: {{lenOfetas}} - Contador: {{ a.contador }}</p>
+					<p class="text-h6">Empleos encontrados: {{lenOfetas}}</p>
 
 					<OfertaList :ofertas="empleos.empleos"></OfertaList>
 
@@ -62,10 +63,11 @@
 
 import OfertaList from '../components/OfertaList.vue'
 import { mapState } from 'vuex'
+import BuscadorBarra from '../components/BuscadorBarra.vue'
 
 export default {
 	name: 'BaseEmpleos',
-	components: {  OfertaList },
+	components: {  OfertaList, BuscadorBarra },
 	data() {
 		return {
 			categorias: ['Todas', 'Ingenieria', 'Aquitectura', 'Diseña grafico', 'Legales'],
@@ -76,7 +78,6 @@ export default {
 	},
 	computed: {
 		...mapState({
-			a: state => state.a,
 			empleos: state => state.empleos
 
 		}),

@@ -8,33 +8,11 @@ Vue.use(Vuex)
 const token = 'token'
 const user = 'user'
 
-const moduleA = {
-	namespaced: true,
-	state: () => ({
-		contador: 5
-	}),
-	mutations: {
-		incrementar(state) {
-			state.contador++
-		}
-	},
-	actions: {
-		incrementarContador({ state, commit }) {
-			commit('incrementar')
-			console.log(state.contador)
-		}
-
-	},
-	getters: {
-
-	}
-}
-
-
 export default new Vuex.Store({
   state: {
 		token: localStorage.getItem(token) || null,
 		user: JSON.parse(localStorage.getItem(user)) || null,
+		nameApp: 'Alumni UTEQ'
   },
   mutations: {
 		set_token_user(state, data) {
@@ -69,11 +47,10 @@ export default new Vuex.Store({
   },
 	getters: {
 		getURLAvatar(state) {
-			return axios.defaults.baseURL + '/users/avatar/' + state.user.urlAvatar
+			return axios.defaults.baseURL + '/users/avataraws/' + state.user.urlAvatar
 		}
 	},
   modules: {
-		a: moduleA,
 		empleos: empleos
   }
 })

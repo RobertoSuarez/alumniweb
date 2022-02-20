@@ -6,20 +6,34 @@
 			app
 			elevation="4"
 			elevate-on-scroll
+			color="primary"
+			dark
 		>
 			<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 			<v-toolbar-title class="mr-3">
-				Alumni UTEQ
+					{{ nameApp }}
 				<span class="text-overline ml-4">{{ getCurrentNamePage }}</span>
 			</v-toolbar-title>
 
 			<v-divider vertical></v-divider>
 
-			<BuscadorBarra class="ml-2" v-if="getCurrentNamePage === 'Ofertas Laborales'"></BuscadorBarra>
+
 
 			<v-spacer></v-spacer>
+			<v-toolbar-items>
 
-			<div>
+				<v-btn text color="white">
+					<v-icon left>fas fa-briefcase</v-icon>
+					Trabajos
+				</v-btn>
+				<v-btn text color="white">
+					<v-icon left>far fa-newspaper</v-icon>
+					Noticias
+				</v-btn>
+
+			</v-toolbar-items>
+
+			<div class="ml-5">
 
 				<v-menu offset-y>
 					<template v-slot:activator="{ on, attrs }">
@@ -65,7 +79,7 @@
 			temporary
 		>
 
-			<v-list>
+			<!-- <v-list>
 				<v-list-item link :to="{name: 'perfil', params: { iduser: user.id } }">
 					<v-list-item-avatar>
 						<v-img :src="getURLAvatar"></v-img>
@@ -76,6 +90,12 @@
 						<v-list-item-subtitle>{{user.email}}</v-list-item-subtitle>
 					</v-list-item-content>
 				</v-list-item>
+			</v-list> -->
+
+			<v-list>
+				<v-list-item>
+					<v-list-item-title class="text-h5">{{nameApp}}</v-list-item-title>
+				</v-list-item>
 			</v-list>
 
 			<v-divider></v-divider>
@@ -83,7 +103,6 @@
 			<v-list dense>
 				<v-list-item-group
 					v-model="select"
-					color="primary"
 					mandatory
 				>
 
@@ -113,11 +132,11 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
-import BuscadorBarra from './BuscadorBarra.vue'
+
 
 export default {
 	name: 'TheNavBar',
-	components: { BuscadorBarra },
+	components: {  },
 	mounted() {
 
 	},
@@ -176,7 +195,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['token', 'user']),
+		...mapState(['token', 'user', 'nameApp']),
 		...mapGetters(['getURLAvatar']),
 		getCurrentNamePage() {
 			return this.$route.name;

@@ -74,9 +74,7 @@ export default {
 			})
 
 			if (ok) {
-				this.$router.push({
-					name: 'feed'
-				})
+				this.$router.push('/feed')
 			}
 			this.cargando = false
 		}
