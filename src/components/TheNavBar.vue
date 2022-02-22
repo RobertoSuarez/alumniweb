@@ -22,11 +22,11 @@
 			<v-spacer></v-spacer>
 			<v-toolbar-items>
 
-				<v-btn text color="white">
+				<v-btn text color="white" :to="{name: 'Ofertas Laborales'}">
 					<v-icon left>fas fa-briefcase</v-icon>
 					Trabajos
 				</v-btn>
-				<v-btn text color="white">
+				<v-btn text color="white" :to="{name: 'noticias'}">
 					<v-icon left>far fa-newspaper</v-icon>
 					Noticias
 				</v-btn>

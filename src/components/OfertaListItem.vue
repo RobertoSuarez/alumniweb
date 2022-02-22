@@ -1,6 +1,6 @@
 <template>
 	<v-hover v-slot="{ hover }">
-		<v-card :elevation="hover ? 10 : 2" class="my-3 transition-swing">
+		<v-card :elevation="hover ? 10 : 2" class="my-3 transition-swing card_empleo">
 			<v-list-item three-line>
 
 				<v-list-item-avatar
@@ -13,7 +13,7 @@
 
 				<v-list-item-content>
 					<v-list-item-title class="text-h6 mb-1">
-						<router-link class="text-decoration-none" :to="{name: 'oferta', params: { idoferta: '1' }}">{{oferta.titulo}}</router-link>
+						<router-link class="text-decoration-none" :to="{name: 'empleo', params: { idempleo: oferta.id }}">{{oferta.titulo}}</router-link>
 					</v-list-item-title>
 					<v-list-item-subtitle>{{oferta.usuario.nombres}}</v-list-item-subtitle>
 					<v-list-item-subtitle>{{oferta.ciudad}} ({{oferta.tipoEmpleo}} - {{oferta.jornada}})</v-list-item-subtitle>
@@ -21,6 +21,7 @@
 				</v-list-item-content>
 
 			</v-list-item>
+
 		</v-card>
 	</v-hover>
 </template>
@@ -33,11 +34,17 @@ export default {
 			type: Object,
 			required: true,
 		}
-	}
+	},
+
 
 }
 </script>
 
-<style>
+<style scoped>
+
+.card_empleo {
+	border-left: 8px solid  !important;
+	border-left-color: var(--v-primary-base) !important;
+}
 
 </style>

@@ -10,6 +10,7 @@ import Noticias from '../pages/BaseNoticias'
 import Empresas from '../pages/BaseEmpresa'
 import Perfil from '../pages/BasePerfil'
 import BasePublicarEmpleo from '../pages/BasePublicarEmpleo'
+import BaseEmpleo from '../pages/BaseEmpleo'
 
 const router = new VueRouter({
     mode: 'history',
@@ -39,18 +40,19 @@ const router = new VueRouter({
 			},
 			{
 					path: '/feed',
+					redirect: 'ofertas',
 					component: Main,
 					meta: {
 						requiresAuth: true
 					},
 					children: [
 							{
-								path: '',
+								path: 'ofertas',
 								name: 'Ofertas Laborales',
 								component: BaseEmpleos
 							},
 							{
-								path: 'noticias',
+								path: '/noticias',
 								name: 'noticias',
 								component: Noticias,
 							},
@@ -69,6 +71,12 @@ const router = new VueRouter({
 								path: 'publicar_empleo',
 								name: 'publicar empleo',
 								component: BasePublicarEmpleo
+							},
+							{
+								path: '/empleo/:idempleo',
+								name: 'empleo',
+								component: BaseEmpleo,
+								props: true
 							}
 					]
 			},

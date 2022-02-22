@@ -26,7 +26,10 @@ import { mapState, mapActions } from 'vuex'
 export default {
 	name: 'BuscadorBarra',
 	mounted() {
-		this.empleosBuscar()
+		console.log(this.empleos.empleos === [])
+		if (this.empleos.empleos.length < 1) {
+			this.empleosBuscar()
+		}
 	},
 	data() {
 		return {
