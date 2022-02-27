@@ -2,9 +2,10 @@
 	<!-- buscador -->
 	<v-form @submit.prevent="buscar" class="contenedor">
 		<v-row align="center">
-			<v-col  cols="10" md="10">
+			<v-col cols="8" sm="10">
 				<v-text-field
-					v-model="texto"
+					v-bind:value="value"
+					@input="$emit('input', $event)"
 					dense
 					class="mx-1"
 					label="Buscar Trabajo"
@@ -14,35 +15,28 @@
 				>
 				</v-text-field>
 			</v-col>
-			<v-col  cols="2" md="2" class="d-flex justify-center">
-				<v-btn type="submit"  dark block>Buscar</v-btn>
+
+			<v-col  cols="4" sm="2" class="d-flex justify-center">
+				<v-btn type="submit" dark block>Buscar</v-btn>
 			</v-col>
 		</v-row>
 	</v-form>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 export default {
 	name: 'BuscadorBarra',
-	mounted() {
-		console.log(this.empleos.empleos === [])
-		if (this.empleos.empleos.length < 1) {
-			this.empleosBuscar()
-		}
-	},
+	props: ['value'],
 	data() {
 		return {
 			texto: '',
 		}
 	},
 	methods: {
-		...mapActions({
-			incrementar: 'a/incrementarContador',
-			empleosBuscar: 'empleos/buscar'
-		}),
 		buscar() {
-			this.empleosBuscar()
+			//this.empleosBuscar()
+			this.$emit('buscar')
 
 			//this.$store.dispatch('a/incrementarContador')
 		}

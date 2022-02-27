@@ -6,13 +6,18 @@ const empleos = {
 	state: () => ({
 		contador: 5,
 		empleos: [],
+		query: {
+			area: [],
+			ciudades: [],
+			busquedad: '',
+		},
 	}),
 	mutations: {
 		incrementar(state) {
 			state.contador++
 		},
 		setEmpleos(state, payload) {
-			console.log("set empleos from api rest")
+			//console.log("set empleos from api rest")
 			state.empleos = payload
 		}
 	},
@@ -20,10 +25,16 @@ const empleos = {
 		incrementarContador({ commit }) {
 			commit('incrementar')
 		},
-		async buscar({ commit }) {
+		async buscar({ commit }, payload) {
 			//console.log('Buscando empleo con la api', state.contador)
+			console.log(payload)
 			try {
-				const response = await axios.get('/ofertas')
+				const params = new URLSearchParams()
+				params.append('busquedad', payload.busquedad)
+				params.append('ciudades', payload.ciudades)
+				params.append('areas', payload.areas)
+
+				const response = await axios.get('/ofertas', { params })
 				commit('setEmpleos', response.data)
 			} catch(e) {
 				console.log(e)

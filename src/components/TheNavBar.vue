@@ -20,7 +20,7 @@
 
 
 			<v-spacer></v-spacer>
-			<v-toolbar-items>
+			<v-toolbar-items class="d-none d-sm-flex">
 
 				<v-btn text color="white" :to="{name: 'Ofertas Laborales'}">
 					<v-icon left>fas fa-briefcase</v-icon>

@@ -1,52 +1,74 @@
 <template>
 		<v-container>
-			<BuscadorBarra ></BuscadorBarra>
+			<BuscadorBarra v-model="texto" @buscar="buscar" ></BuscadorBarra>
 			<v-row class="mt-2">
-
 				<v-col sm="12" md="3">
-
 					<!-- Menu de opciones -->
 					<div style="position: sticky; top: 76px">
 						<p class="text-h6">Filtros</p>
-						<v-expansion-panels class="mb-2">
-							<v-expansion-panel class="mb-1">
-								<v-expansion-panel-header expand-icon="fa-angle-down">
-									Área
-								</v-expansion-panel-header>
 
-								<v-expansion-panel-content>
-									<v-radio-group mandatory v-model="categoriaSeleccionada">
-										<v-radio v-for="(ctg, index) in categorias" :key="index" :label="ctg" :value="ctg"/>
-									</v-radio-group>
-								</v-expansion-panel-content>
-							</v-expansion-panel>
+						<v-list class="mb-5" elevation="4">
 
-							<v-expansion-panel class="mb-1">
-								<v-expansion-panel-header expand-icon="fa-angle-down">
-									Localidad
-								</v-expansion-panel-header>
+							<!-- Categorias -->
+							<v-list-group
+								:value="true"
+								color="black"
+							>
+								<template v-slot:activator>
+									<v-list-item-title>Categorias</v-list-item-title>
+								</template>
 
-								<v-expansion-panel-content>
-									<v-radio-group mandatory v-model="ciudadSeleccionada">
-										<v-radio v-for="(ciudad, index) in ciudades" :key="index" :label="ciudad" :value="ciudad"/>
-									</v-radio-group>
-								</v-expansion-panel-content>
-							</v-expansion-panel>
-						</v-expansion-panels>
+								<v-list-item
+									v-for="(ctg, index) in categorias"
+									:key="index"
+									dense
+								>
+									<v-checkbox
+										dense
+										hide-details
+										v-model="categoriaSeleccionada"
+										:label="ctg"
+										:value="ctg">
+									</v-checkbox>
+								</v-list-item>
+							</v-list-group>
+
+							<!-- Ciudades -->
+							<v-list-group
+								:value="false"
+								color="black"
+							>
+								<template v-slot:activator>
+									<v-list-item-title>Ciudades</v-list-item-title>
+								</template>
+
+								<v-list-item
+									v-for="(ciudad, index) in ciudades"
+									:key="index"
+									dense
+								>
+									<v-checkbox
+										dense
+										hide-details
+										v-model="ciudadSeleccionada"
+										:label="ciudad"
+										:value="ciudad">
+									</v-checkbox>
+								</v-list-item>
+							</v-list-group>
+
+						</v-list>
+
 
 						<v-btn color="primary" :to="{name: 'publicar empleo'}" block outlined>
 							Publicar un empleo
 						</v-btn>
           </div>
 
-
-
-
-
 				</v-col>
 
 				<v-col sm="12" md="9">
-					<p class="text-h6">Empleos encontrados: {{lenOfetas}}</p>
+					<p class="text-h6">{{lenOfetas}} empleos encontrados</p>
 
 					<OfertaList :ofertas="empleos.empleos"></OfertaList>
 
@@ -62,24 +84,41 @@
 
 
 import OfertaList from '../components/OfertaList.vue'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import BuscadorBarra from '../components/BuscadorBarra.vue'
 
 export default {
 	name: 'BaseEmpleos',
 	components: {  OfertaList, BuscadorBarra },
+	mounted() {
+		if (this.empleos.empleos.length < 1) {
+			this.buscar()
+		}
+	},
 	data() {
 		return {
-			categorias: ['Todas', 'Ingenieria', 'Aquitectura', 'Diseña grafico', 'Legales'],
-			categoriaSeleccionada: '',
-			ciudades: ['Todas', 'Quevedo', 'Buena fe'],
-			ciudadSeleccionada: ''
+			categorias: ['Mecanica', 'backend', 'frontend', 'Legales'],
+			categoriaSeleccionada: [],
+			ciudades: ['Los Angeles', 'Buena fe'],
+			ciudadSeleccionada: [],
+			texto: ''
+		}
+	},
+	methods: {
+		...mapActions({
+			empleosBuscar: 'empleos/buscar'
+		}),
+		buscar() {
+			this.empleosBuscar({
+				areas: this.categoriaSeleccionada,
+				ciudades: this.ciudadSeleccionada,
+				busquedad: this.texto
+			})
 		}
 	},
 	computed: {
 		...mapState({
 			empleos: state => state.empleos
-
 		}),
 		lenOfetas() {
 			return this.empleos.empleos.length
