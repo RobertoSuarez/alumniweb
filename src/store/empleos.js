@@ -39,6 +39,7 @@ const empleos = {
 			} catch(e) {
 				console.log(e)
 			}
+
 		},
 		async crearEmpleo(_, payload) {
 

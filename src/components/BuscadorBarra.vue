@@ -17,7 +17,7 @@
 			</v-col>
 
 			<v-col  cols="4" sm="2" class="d-flex justify-center">
-				<v-btn type="submit" dark block>Buscar</v-btn>
+				<v-btn type="submit" :loading="cargando" dark block>Buscar</v-btn>
 			</v-col>
 		</v-row>
 	</v-form>
@@ -27,7 +27,7 @@
 import { mapState } from 'vuex'
 export default {
 	name: 'BuscadorBarra',
-	props: ['value'],
+	props: ['value', 'cargando'],
 	data() {
 		return {
 			texto: '',

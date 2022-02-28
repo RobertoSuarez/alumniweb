@@ -1,6 +1,6 @@
 <template>
 		<v-container>
-			<BuscadorBarra v-model="texto" @buscar="buscar" ></BuscadorBarra>
+			<BuscadorBarra v-model="texto" @buscar="buscar" :cargando="cargando"></BuscadorBarra>
 			<v-row class="mt-2">
 				<v-col sm="12" md="3">
 					<!-- Menu de opciones -->
@@ -97,6 +97,7 @@ export default {
 	},
 	data() {
 		return {
+			cargando: false,
 			categorias: ['Mecanica', 'backend', 'frontend', 'Legales'],
 			categoriaSeleccionada: [],
 			ciudades: ['Los Angeles', 'Buena fe'],
@@ -108,12 +109,15 @@ export default {
 		...mapActions({
 			empleosBuscar: 'empleos/buscar'
 		}),
-		buscar() {
-			this.empleosBuscar({
+		async buscar() {
+			this.cargando = true
+			await this.empleosBuscar({
 				areas: this.categoriaSeleccionada,
 				ciudades: this.ciudadSeleccionada,
 				busquedad: this.texto
 			})
+			console.log('Completado')
+			this.cargando = false
 		}
 	},
 	computed: {
