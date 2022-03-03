@@ -2,9 +2,9 @@
   <v-app>
 		<TheNavBar></TheNavBar>
 
-    <v-main class="fondo">
-      <router-view></router-view>
-    </v-main>
+		<v-main class="fondo">
+			<router-view></router-view>
+		</v-main>
 
 		<TheFooter/>
   </v-app>
