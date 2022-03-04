@@ -12,7 +12,6 @@
 							<!-- Categorias -->
 							<v-list-group
 								:value="true"
-								color="black"
 							>
 								<template v-slot:activator>
 									<v-list-item-title>Categorias</v-list-item-title>
@@ -36,7 +35,6 @@
 							<!-- Ciudades -->
 							<v-list-group
 								:value="false"
-								color="black"
 							>
 								<template v-slot:activator>
 									<v-list-item-title>Ciudades</v-list-item-title>

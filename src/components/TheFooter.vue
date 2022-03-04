@@ -1,5 +1,5 @@
 <template>
-	<v-footer dark class="pa-15">
+	<v-footer dark class="pa-15 mt-15">
 		<v-container>
 
 			<v-row>

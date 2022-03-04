@@ -1,5 +1,5 @@
 <template>
-	<v-card class="card_empleo my-3" elevation="2">
+	<v-card class="card_empleo mb-4" elevation="2">
 
 		<v-sheet class="d-flex">
 			<div class="ml-4 mt-4" >
@@ -23,7 +23,10 @@
 
 		<v-card-actions>
 			<v-spacer></v-spacer>
-			<v-btn color="primary" :to="{name: 'empleo', params: {idempleo: oferta.id}}">Saber más</v-btn>
+			<v-btn class="mr-2 mb-2" color="primary" :to="{name: 'empleo', params: {idempleo: oferta.id}}">
+				<v-icon left>fas fa-plus</v-icon>
+				más información
+			</v-btn>
 		</v-card-actions>
 
 	</v-card>

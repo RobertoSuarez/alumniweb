@@ -1,8 +1,8 @@
 <template>
-  <v-app>
+  <v-app class="fondo">
 		<TheNavBar></TheNavBar>
 
-		<v-main class="fondo">
+		<v-main >
 			<router-view></router-view>
 		</v-main>
 
@@ -41,7 +41,7 @@ export default {
 
 <style scoped>
 .fondo {
-	background: #F4F4F4;
+	background: var(--v-background-base) !important;
 
 }
 </style>

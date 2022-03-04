@@ -58,6 +58,23 @@
 								</v-list-item-content>
 							</v-list-item>
 
+							<v-list-item>
+								<v-list-item-icon>
+									<v-icon>fas fa-adjust</v-icon>
+								</v-list-item-icon>
+								<v-list-item-content>
+									<v-list-item-title>Modo oscuro</v-list-item-title>
+								</v-list-item-content>
+								<v-list-item-action>
+									<v-switch
+										v-model="$vuetify.theme.dark"
+										persistent-hint
+										inset
+									></v-switch>
+
+								</v-list-item-action>
+							</v-list-item>
+
 							<v-list-item link @click="cerrarSesion">
 								<v-list-item-icon>
 									<v-icon>fas fa-sign-out-alt</v-icon>
