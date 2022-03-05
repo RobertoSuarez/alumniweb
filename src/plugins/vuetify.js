@@ -6,6 +6,7 @@ import colors from 'vuetify/lib/util/colors'
 Vue.use(Vuetify);
 
 export default new Vuetify({
+
 	icons: {
 			iconfont: 'fa',
 	},
@@ -17,7 +18,7 @@ export default new Vuetify({
 		themes: {
 			light: {
 				primary: '#3BB873',
-				secondary: '#406661',
+				secondary: colors.pink.darken1,
 				muted: '#F3F3F3',
 				accent: '#ffc107',
 				error: '#e91e63',

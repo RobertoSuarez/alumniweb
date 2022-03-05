@@ -1,5 +1,5 @@
 <template>
-  <router-view></router-view>
+  <router-view class="application"></router-view>
 </template>
 
 <script>
@@ -15,3 +15,11 @@ export default {
   }),
 };
 </script>
+
+<style>
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+
+.application {
+  font-family: "Raleway";
+}
+</style>

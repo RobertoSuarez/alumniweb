@@ -7,9 +7,11 @@ Vue.use(Vuex)
 
 const token = 'token'
 const user = 'user'
+const themedark = 'themedark'
 
 export default new Vuex.Store({
   state: {
+		themeDark: localStorage.getItem(themedark) || null,
 		token: localStorage.getItem(token) || null,
 		user: JSON.parse(localStorage.getItem(user)) || null,
 		nameApp: 'Alumni UTEQ'
@@ -27,7 +29,11 @@ export default new Vuex.Store({
 			state.user = null
 			localStorage.removeItem(token)
 			localStorage.removeItem(user)
-
+		},
+		set_theme(state, data) {
+			console.log("Theme dark: " + data)
+			state.themeDark = data
+			localStorage.setItem(themedark, data)
 		}
   },
   actions: {

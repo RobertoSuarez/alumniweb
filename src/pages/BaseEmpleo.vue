@@ -13,7 +13,7 @@
 					</v-card-title>
 
 					<v-card-text>
-						<div class="text--primary font-weight-bold text-h4">Software developer</div>
+						<div class="text--primary font-weight-bold text-h4">Software developer {{idempleo}}</div>
 						<div class="text--primary font-weight-bold text-subtitle-1">Area · Subarea</div>
 						<div class="text--secondary font-weight-regular text-subtitle-1">Full time</div>
 						<div class="text--secondary font-weight-regular text-subtitle-1">Publicado: hace 1 hora</div>
@@ -23,13 +23,9 @@
 						<v-btn color="blue" text>Mas trabajos de esta empresa</v-btn>
 					</v-card-actions>
 					<v-card-actions>
-						<v-btn class="ml-2" color="primary">
+						<v-btn class="ml-2" color="secondary" large>
 							<v-icon left>fas fa-check</v-icon>
-							Aplicar
-						</v-btn>
-						<v-btn outlined color="primary">
-							<v-icon left>fas fa-save</v-icon>
-							Guardar
+							Aplicar al trabajo
 						</v-btn>
 					</v-card-actions>
 
@@ -72,24 +68,9 @@ Your role is responsible for providing the Companies Animal Health automation te
 						Javascript
 					</v-chip>
 				</div>
-				<v-list three-line elevation="4">
-					<template  v-for="(sugerencia, index) in sugerencias">
-						<v-list-item :key="index" link>
-							<v-list-item-avatar tile size="60">
-								<v-img src="/empresa.jfif"></v-img>
-							</v-list-item-avatar>
-							<v-list-item-content>
-								<v-list-item-title class="text--primary font-weight-bold" v-text="sugerencia"></v-list-item-title>
-								<v-list-item-subtitle class="text--primary">Area · Subarea</v-list-item-subtitle>
-								<v-list-item-subtitle>Full time</v-list-item-subtitle>
-								<v-list-item-subtitle>Publicado: hace 1 hora</v-list-item-subtitle>
 
-							</v-list-item-content>
 
-						</v-list-item>
-						<v-divider v-if="index < sugerencias.length -1" :key="index"></v-divider>
-					</template>
-				</v-list>
+				<OfertaList :ofertas="empleos.empleos"></OfertaList>
 
 
 			</v-col>
@@ -99,13 +80,31 @@ Your role is responsible for providing the Companies Animal Health automation te
 </template>
 
 <script>
+
+import OfertaList from '../components/OfertaList.vue'
+import { mapState, mapActions } from 'vuex'
+
 export default {
 	name: 'Empleo',
 	props: {
 		idempleo: {
-			type: String,
+			type: [String, Number],
 			required: true,
 		}
+	},
+	components: { OfertaList },
+	beforeUpdate() {
+		console.log('before update ' + this.idempleo)
+	},
+	mounted() {
+		if (this.empleos.empleos.length < 1) {
+			this.empleosBuscar({
+				areas: [],
+				ciudades: [],
+				busquedad: ''
+			})
+		}
+		console.log('montado con ' + this.idempleo)
 	},
 	data() {
 		return {
@@ -117,6 +116,16 @@ export default {
 				'Ingeniero en software',
 				]
 		}
+	},
+	methods: {
+		...mapActions({
+			empleosBuscar: 'empleos/buscar'
+		}),
+	},
+	computed: {
+		...mapState({
+			empleos: state => state.empleos
+		})
 	}
 }
 </script>

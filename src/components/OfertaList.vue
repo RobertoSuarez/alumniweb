@@ -1,6 +1,8 @@
 <template>
 	<div>
 		<div v-if="ofertas != []">
+
+
 			<OfertaListItem v-for="(oferta, index) in ofertas" :key="index" :oferta="oferta"></OfertaListItem>
 		</div>
 		<div v-else>

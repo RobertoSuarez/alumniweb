@@ -1,35 +1,18 @@
 <template>
-	<v-card class="card_empleo mb-4" elevation="2">
+	<v-sheet elevation="4" class="mb-2">
+		<v-list-item three-line link :to="{name: 'empleo', params: {idempleo: oferta.id}}">
+			<v-list-item-avatar tile size="60">
+				<v-img src="/empresa.jfif"></v-img>
+			</v-list-item-avatar>
+			<v-list-item-content>
+				<v-list-item-title class="text--primary font-weight-bold" v-text="oferta.titulo"></v-list-item-title>
+				<v-list-item-subtitle class="text--primary">{{oferta.puesto}}</v-list-item-subtitle>
+				<v-list-item-subtitle>{{oferta.ciudad}}</v-list-item-subtitle>
+				<v-list-item-subtitle>Publicado: {{fechaRelativa}}</v-list-item-subtitle>
+			</v-list-item-content>
+		</v-list-item>
 
-		<v-sheet class="d-flex">
-			<div class="ml-4 mt-4" >
-				<v-avatar size="80" rounded >
-					<v-img src="/empresa.jfif" class="card_img"></v-img>
-				</v-avatar>
-			</div>
-
-			<v-card-text class="my-0 py-0">
-				<v-card-title class="primary--text text-h4" v-text="oferta.titulo"></v-card-title>
-				<v-card-subtitle>
-					<div class="text--primary text-h6">{{oferta.puesto}}</div>
-					<div class="text--secondary">{{oferta.ciudad}}</div>
-					<div class="text--secondary">Publicado: {{fechaRelativa}}</div>
-				</v-card-subtitle>
-				<v-card-text v-text="oferta.descripcion.substr(0, 400)+'...'"></v-card-text>
-			</v-card-text>
-
-		</v-sheet>
-
-
-		<v-card-actions>
-			<v-spacer></v-spacer>
-			<v-btn class="mr-2 mb-2" color="primary" :to="{name: 'empleo', params: {idempleo: oferta.id}}">
-				<v-icon left>fas fa-plus</v-icon>
-				más información
-			</v-btn>
-		</v-card-actions>
-
-	</v-card>
+	</v-sheet>
 
 </template>
 

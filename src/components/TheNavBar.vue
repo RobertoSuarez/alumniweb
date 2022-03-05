@@ -22,11 +22,11 @@
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="d-none d-sm-flex">
 
-				<v-btn text color="white" :to="{name: 'Ofertas Laborales'}">
+				<v-btn text :to="{name: 'Ofertas Laborales'}">
 					<v-icon left>fas fa-briefcase</v-icon>
 					Trabajos
 				</v-btn>
-				<v-btn text color="white" :to="{name: 'noticias'}">
+				<v-btn text :to="{name: 'noticias'}">
 					<v-icon left>far fa-newspaper</v-icon>
 					Noticias
 				</v-btn>
@@ -67,7 +67,7 @@
 								</v-list-item-content>
 								<v-list-item-action>
 									<v-switch
-										v-model="$vuetify.theme.dark"
+										v-model="isDark"
 										persistent-hint
 										inset
 									></v-switch>
@@ -156,10 +156,12 @@ export default {
 	components: {  },
 	mounted() {
 
+		this.isDark = localStorage.getItem('themedark') === 'true'
 	},
 	data() {
 		return {
 			drawer: false,
+			isDark: false,
 			select: 0,
 			seleccionado: 0,
 			menuOpciones: [
@@ -209,6 +211,9 @@ export default {
 
 		nombreComponente() {
 			return this.menuOpciones[this.seleccionado].nameComponent
+		},
+		cambiarTheme() {
+
 		}
 	},
 	computed: {
@@ -220,10 +225,17 @@ export default {
 		tituloPagina() {
 			return this.menuOpciones[this.seleccionado].titulo
 		}
+	},
+	watch: {
+		isDark(value) {
+			localStorage.setItem('themedark', value)
+			this.$vuetify.theme.dark = value
+		}
 	}
 }
 </script>
 
-<style>
+<style scoped>
+
 
 </style>
