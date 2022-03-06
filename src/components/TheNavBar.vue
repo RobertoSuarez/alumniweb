@@ -11,7 +11,9 @@
 		>
 			<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 			<v-toolbar-title class="mr-3">
-					{{ nameApp }}
+				<router-link :to="{name: 'Ofertas Laborales'}" custom v-slot="{ navigate }">
+					<a @click="navigate" class="white--text">{{ nameApp }}</a>
+				</router-link>
 				<span class="text-overline ml-4">{{ getCurrentNamePage }}</span>
 			</v-toolbar-title>
 

@@ -68,7 +68,8 @@
 				<v-col sm="12" md="9">
 					<p class="text-h6">{{lenOfetas}} empleos encontrados</p>
 
-					<OfertaList :ofertas="empleos.empleos"></OfertaList>
+					<OfertaList v-if="empleos.empleos.length > 0" :ofertas="empleos.empleos"></OfertaList>
+					<p v-else class="text-center">No hay empleos de ese tipo</p>
 
 				</v-col>
 			</v-row>

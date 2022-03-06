@@ -3,7 +3,8 @@
 		<v-row class="mt-2">
 
 			<v-col cols="12" md="8">
-				<v-card elevation="4">
+
+				<v-card elevation="4" :loading="cargando" :disabled="cargando">
 					<v-card-title class="d-flex align-start">
 						<v-avatar color="grey" size="100" tile>
 							<v-img src="/empresa.jfif" class="card_img"></v-img>
@@ -13,10 +14,10 @@
 					</v-card-title>
 
 					<v-card-text>
-						<div class="text--primary font-weight-bold text-h4">Software developer {{idempleo}}</div>
-						<div class="text--primary font-weight-bold text-subtitle-1">Area · Subarea</div>
-						<div class="text--secondary font-weight-regular text-subtitle-1">Full time</div>
-						<div class="text--secondary font-weight-regular text-subtitle-1">Publicado: hace 1 hora</div>
+						<div class="text--primary font-weight-bold text-h4">{{empleo.titulo}}</div>
+						<div class="text--primary font-weight-bold text-subtitle-1">{{ empleo.area}} · {{ empleo.subarea }}</div>
+						<div class="text--secondary font-weight-regular text-subtitle-1">{{ empleo.jornada }}</div>
+						<div class="text--secondary font-weight-regular text-subtitle-1">Publicado: {{ fecha }}</div>
 
 					</v-card-text>
 					<v-card-actions>
@@ -33,12 +34,7 @@
 
 					<v-card-text>
 						<div class="text--primary font-weight-bold text-subtitle-1">Descripción</div>
-						<div class="text--primary font-weight-regular text-body-1">Permanent Full-Time role based in Waikato, Hamilton, New Zealand
-Great opportunity to join a Global Animal Health organisation as an integral member of the automation team
-Be part of a friendly, collaborative team, where you will be fully supported
-
-Your role is responsible for providing the Companies Animal Health automation team with specialised and highly skilled capabilities for system/application design, development, and business system integration.
-</div>
+						<div class="text--primary font-weight-regular text-body-1">{{ empleo.descripcion }}</div>
 					</v-card-text>
 
 
@@ -48,24 +44,14 @@ Your role is responsible for providing the Companies Animal Health automation te
 			<v-col cols="12" md="4">
 				<div class="mb-2">
 					<v-chip
+						v-for="(tag, index) in tags"
+						:key="index"
 						class="mr-2"
-						color="primary"
+						link
+						@click=" tag.activa = !tag.activa"
+						:color="tag.activa ? 'primary': ''"
 					>
-						Software
-					</v-chip>
-					<v-chip
-						class="mr-2"
-						color="primary"
-						outlined
-					>
-						Backend
-					</v-chip>
-					<v-chip
-						class="mr-2"
-						color="primary"
-						outlined
-					>
-						Javascript
+						{{ tag.name }}
 					</v-chip>
 				</div>
 
@@ -83,6 +69,8 @@ Your role is responsible for providing the Companies Animal Health automation te
 
 import OfertaList from '../components/OfertaList.vue'
 import { mapState, mapActions } from 'vuex'
+import axios from '../plugins/axios'
+import helpers from '../helpers'
 
 export default {
 	name: 'Empleo',
@@ -93,10 +81,9 @@ export default {
 		}
 	},
 	components: { OfertaList },
-	beforeUpdate() {
-		console.log('before update ' + this.idempleo)
-	},
 	mounted() {
+
+		this.estadoCargando(this.cargarTrabajo)
 		if (this.empleos.empleos.length < 1) {
 			this.empleosBuscar({
 				areas: [],
@@ -104,7 +91,7 @@ export default {
 				busquedad: ''
 			})
 		}
-		console.log('montado con ' + this.idempleo)
+		//console.log('montado con ' + this.idempleo)
 	},
 	data() {
 		return {
@@ -114,18 +101,65 @@ export default {
 				'Ingeniero en alimentos',
 				'Ingeniero en telematica',
 				'Ingeniero en software',
-				]
+				],
+			empleo: {},
+			cargando: false,
+			tags: [
+				{name: 'Backend', activa: false},
+				{name: 'Frontend', activa: false},
+				{name: 'Mecanica', activa: false}
+			],
 		}
 	},
 	methods: {
 		...mapActions({
 			empleosBuscar: 'empleos/buscar'
 		}),
+		async estadoCargando(func) {
+			this.cargando = true
+			await func()
+			this.cargando = false
+		},
+		async cargarTrabajo() {
+			this.cargando = true
+			//console.log(this.cargando)
+			try {
+				let response = await axios.get(`/ofertas/${this.idempleo}`)
+				//console.log(response.data)
+				this.empleo = response.data
+			}catch(e) {
+				console.log(e)
+			} finally {
+				this.cargando = false
+			}
+
+		},
+
 	},
 	computed: {
 		...mapState({
 			empleos: state => state.empleos
-		})
+		}),
+		fecha() {
+			return helpers.fechaRelativa(this.empleo.fecha)
+		}
+	},
+	watch: {
+		idempleo: function() {
+			this.estadoCargando(this.cargarTrabajo)
+		},
+		tags: {
+			handler: function(newValue) {
+				let result = newValue.filter(tag => tag.activa)
+				console.log(result)
+				this.empleosBuscar({
+					areas: result.map(tag => tag.name),
+					ciudades: [],
+					busquedad: ''
+				})
+			},
+			deep: true
+		}
 	}
 }
 </script>
