@@ -25,7 +25,7 @@ const empleos = {
 		incrementarContador({ commit }) {
 			commit('incrementar')
 		},
-		async buscar({ commit }, payload) {
+		async buscar({ commit, rootGetters }, payload) {
 			//console.log('Buscando empleo con la api', state.contador)
 			//console.log(payload)
 			try {
@@ -34,7 +34,7 @@ const empleos = {
 				params.append('ciudades', payload.ciudades)
 				params.append('areas', payload.areas)
 
-				const response = await axios.get('/empleos', { params })
+				const response = await axios.get('/empleos', rootGetters.tokenHeader)
 				commit('setEmpleos', response.data)
 			} catch(e) {
 				console.log(e)
@@ -53,24 +53,39 @@ const empleos = {
 			}
 
 		},
-		async guardarEmpleoUsuario(_, id) {
+		async guardarEmpleoUsuario({ rootGetters }, id) {
 			console.log('enviando para guardar', id)
 			try {
-				const resp = await axios.post(`/empleos/${id}/guardar`)
+				const resp = await axios.post(`/empleos/${id}/guardar`, {}, rootGetters.tokenHeader)
 				console.log(resp.status)
 			} catch (err) {
 				console.log('Error', err)
 			}
 
 		},
-		async eliminarEmpleoUsuario(_, id) {
+		async eliminarEmpleoUsuario({ rootGetters }, id) {
 			console.log(`Eliminar ${id} empleo en la API`)
 			try {
-				const resp = await axios.delete(`/empleos/${id}/guardar`)
+				const resp = await axios.delete(`/empleos/${id}/guardar`, rootGetters.tokenHeader)
 				console.log(resp)
 			} catch (err) {
 				console.log('Eliminar empleo errror: ', err)
 			}
+		},
+
+		async verificarGuardadosUsuario({ rootGetters }, ids) {
+			let data = null
+			try {
+				let response = await axios.post('/empleos/guardados-id', ids, rootGetters.tokenHeader)
+				if (response.status === 200) {
+					//console.log('guardados: ', response.data)
+					data = response.data
+				}
+			} catch (err) {
+				console.log(err)
+			}
+
+			return data
 		}
 	},
 	getters: {

@@ -47,7 +47,7 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions('empleos', ['guardarEmpleoUsuario', 'eliminarEmpleoUsuario']),
+		...mapActions('empleos', ['guardarEmpleoUsuario', 'eliminarEmpleoUsuario', 'verificarGuardadosUsuario']),
 		// revisa si los empleos que se muestran ya estan guardado por el usuario
 		async Guardados(ids) {
 			try {
@@ -66,21 +66,24 @@ export default {
 		async guardar(empleo) {
 			this.msg = 'Has guardado este empleo'
 			this.snack = true
+			// guarda el empleo en la api
 			await this.guardarEmpleoUsuario(empleo.id)
-			this.Guardados(this.ofertas.map(o => o.id))
+			// verifica los empleos guardados en la api
+			this.empleosGuardados = await this.verificarGuardadosUsuario(this.ofertas.map(o => o.id))
 		},
 		async eliminar(empleo) {
 			this.msg = 'Este empleo ya no esta guardado'
 			this.snack = true
 			await this.eliminarEmpleoUsuario(empleo.id)
-			await this.Guardados(this.ofertas.map(o => o.id))
+			this.empleosGuardados = await this.verificarGuardadosUsuario(this.ofertas.map(o => o.id))
 		}
 	},
 	watch: {
 		ofertas: {
-			handler(newOfertas) {
+			async handler(newOfertas) {
 				let ids = newOfertas.map(o => o.id)
-				this.Guardados(ids)
+				//this.Guardados(ids)
+				this.empleosGuardados = await this.verificarGuardadosUsuario(ids)
 			},
 			immediate: true,
 		}
