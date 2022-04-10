@@ -96,7 +96,7 @@ export default {
 
 			if (ok) {
 				this.$router.push({
-					name: 'feed'
+					name: 'Ofertas Laborales'
 				})
 			} else {
 				this.showAlertaError = true

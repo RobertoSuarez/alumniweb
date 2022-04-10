@@ -18,15 +18,21 @@
 						<div class="">Area: {{empleo.area.titulo}} · Subarea: {{empleo.subarea.titulo}}</div>
 						<div class="">{{ empleo.jornada }}</div>
 						<div class="">Publicado: {{ fecha }}</div>
+						<div class="text-h6" v-if="aplicado">Aplicación enviada</div>
 
 					</v-card-text>
-					<v-card-actions>
+					<!-- <v-card-actions>
 						<v-btn color="blue" text>Mas trabajos de esta empresa</v-btn>
-					</v-card-actions>
+					</v-card-actions> -->
 					<v-card-actions>
-						<v-btn class="ml-2" color="secondary" large>
+						<!-- Aplicar al trabajo -->
+						<v-btn v-if="!aplicado" class="ml-2" color="secondary" large @click="aplicar">
 							<v-icon left>fas fa-check</v-icon>
 							Aplicar al trabajo
+						</v-btn>
+
+						<v-btn v-else text @click="deshacer">
+							Deshacer aplicación
 						</v-btn>
 					</v-card-actions>
 
@@ -110,6 +116,7 @@ export default {
 			empleo: null,
 			id: null,
 			cargando: false,
+			aplicado: false,
 			tags: [
 				{name: 'Backend', activa: false},
 				{name: 'Frontend', activa: false},
@@ -121,6 +128,7 @@ export default {
 		...mapActions({
 			empleosBuscar: 'empleos/buscar'
 		}),
+		...mapActions('empleos', ['aplicarEmpleo', 'estadoEmpleo', 'removerAplicacion']),
 		async cargarEmpleo(id) {
 			this.cargando = true
 			try {
@@ -132,7 +140,26 @@ export default {
 			} finally {
 				this.cargando = false
 			}
+
+			let { estado } = await this.estadoEmpleo(this.empleo.id)
+			this.aplicado = estado
+
 		},
+		async aplicar() {
+			let ok = await this.aplicarEmpleo(this.empleo.id)
+			this.aplicado = ok
+			console.log('Aplicación de empleo: ', ok)
+		},
+		async deshacer() {
+			let ok = await this.removerAplicacion(this.empleo.id)
+			// como se removio la aplicación del empleo, entonces se quita que este aplicado
+			if (ok) {
+				this.aplicado = false
+			}
+
+			console.log(`Deshacer aplicación al trabajo ${this.empleo.id}`)
+
+		}
 
 	},
 	computed: {

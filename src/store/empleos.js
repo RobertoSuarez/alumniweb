@@ -86,6 +86,45 @@ const empleos = {
 			}
 
 			return data
+		},
+		async aplicarEmpleo({rootGetters}, id) {
+			let ok = false
+			try {
+				const response = await axios.post(`/empleos/${id}/aplicar`, {}, rootGetters.tokenHeader)
+				if (response.status === 200) {
+					console.log('Aplicado correctamente', response.data)
+					ok = true
+				}
+			} catch(err) {
+				console.log(err)
+			}
+			return ok
+		},
+		// Revisa el estado de un empleo si ya se aplico o no, enfocado al usuario
+		async estadoEmpleo({ rootGetters }, id) {
+			let estado = null
+			try {
+				const response = await axios.post(`/empleos/${id}/aplicar/estado`, {}, rootGetters.tokenHeader)
+				if (response.status === 200) {
+					estado = response.data
+				}
+			} catch(err) {
+				console.log(err)
+			}
+
+			return estado
+		},
+		async removerAplicacion({ rootGetters }, id) {
+			let ok = false
+			try {
+				const response = await axios.delete(`/empleos/${id}/aplicar`, rootGetters.tokenHeader)
+				if (response.status === 200) {
+					ok = true
+				}
+			} catch(err) {
+				console.log(err)
+			}
+			return ok
 		}
 	},
 	getters: {
