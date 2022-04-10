@@ -27,14 +27,14 @@ const empleos = {
 		},
 		async buscar({ commit }, payload) {
 			//console.log('Buscando empleo con la api', state.contador)
-			console.log(payload)
+			//console.log(payload)
 			try {
 				const params = new URLSearchParams()
 				params.append('busquedad', payload.busquedad)
 				params.append('ciudades', payload.ciudades)
 				params.append('areas', payload.areas)
 
-				const response = await axios.get('/ofertas', { params })
+				const response = await axios.get('/empleos', { params })
 				commit('setEmpleos', response.data)
 			} catch(e) {
 				console.log(e)
@@ -52,6 +52,25 @@ const empleos = {
 				return null
 			}
 
+		},
+		async guardarEmpleoUsuario(_, id) {
+			console.log('enviando para guardar', id)
+			try {
+				const resp = await axios.post(`/empleos/${id}/guardar`)
+				console.log(resp.status)
+			} catch (err) {
+				console.log('Error', err)
+			}
+
+		},
+		async eliminarEmpleoUsuario(_, id) {
+			console.log(`Eliminar ${id} empleo en la API`)
+			try {
+				const resp = await axios.delete(`/empleos/${id}/guardar`)
+				console.log(resp)
+			} catch (err) {
+				console.log('Eliminar empleo errror: ', err)
+			}
 		}
 	},
 	getters: {

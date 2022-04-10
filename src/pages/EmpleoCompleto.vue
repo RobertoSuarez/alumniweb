@@ -4,7 +4,7 @@
 
 			<v-col cols="12" md="8">
 
-				<v-card elevation="4" :loading="cargando" :disabled="cargando">
+				<v-card v-if="empleo" elevation="4" :loading="cargando" :disabled="cargando">
 					<v-card-title class="d-flex align-start">
 						<v-avatar color="grey" size="100" tile>
 							<v-img src="/empresa.jfif" class="card_img"></v-img>
@@ -14,10 +14,10 @@
 					</v-card-title>
 
 					<v-card-text>
-						<div class="text--primary font-weight-bold text-h4">{{empleo.titulo}}</div>
-						<div class="text--primary font-weight-bold text-subtitle-1">{{ empleo.area}} · {{ empleo.subarea }}</div>
-						<div class="text--secondary font-weight-regular text-subtitle-1">{{ empleo.jornada }}</div>
-						<div class="text--secondary font-weight-regular text-subtitle-1">Publicado: {{ fecha }}</div>
+						<div class="">{{empleo.titulo}}</div>
+						<div class="">Area: {{empleo.area.titulo}} · Subarea: {{empleo.subarea.titulo}}</div>
+						<div class="">{{ empleo.jornada }}</div>
+						<div class="">Publicado: {{ fecha }}</div>
 
 					</v-card-text>
 					<v-card-actions>
@@ -38,7 +38,14 @@
 					</v-card-text>
 
 
+
 				</v-card>
+
+				<v-skeleton-loader
+					v-else
+					type="card"
+				></v-skeleton-loader>
+
 			</v-col>
 
 			<v-col cols="12" md="4">
@@ -56,7 +63,7 @@
 				</div>
 
 
-				<OfertaList :ofertas="empleos.empleos"></OfertaList>
+				<EmpleoList :ofertas="empleos.empleos"></EmpleoList>
 
 
 			</v-col>
@@ -67,23 +74,21 @@
 
 <script>
 
-import OfertaList from '../components/OfertaList.vue'
+import EmpleoList from '../components/EmpleoList.vue'
 import { mapState, mapActions } from 'vuex'
 import axios from '../plugins/axios'
 import helpers from '../helpers'
 
 export default {
-	name: 'Empleo',
+	name: 'EmpleoCompleto',
 	props: {
 		idempleo: {
 			type: [String, Number],
 			required: true,
 		}
 	},
-	components: { OfertaList },
+	components: { EmpleoList },
 	mounted() {
-
-		this.estadoCargando(this.cargarTrabajo)
 		if (this.empleos.empleos.length < 1) {
 			this.empleosBuscar({
 				areas: [],
@@ -91,7 +96,7 @@ export default {
 				busquedad: ''
 			})
 		}
-		//console.log('montado con ' + this.idempleo)
+
 	},
 	data() {
 		return {
@@ -102,7 +107,8 @@ export default {
 				'Ingeniero en telematica',
 				'Ingeniero en software',
 				],
-			empleo: {},
+			empleo: null,
+			id: null,
 			cargando: false,
 			tags: [
 				{name: 'Backend', activa: false},
@@ -115,24 +121,17 @@ export default {
 		...mapActions({
 			empleosBuscar: 'empleos/buscar'
 		}),
-		async estadoCargando(func) {
+		async cargarEmpleo(id) {
 			this.cargando = true
-			await func()
-			this.cargando = false
-		},
-		async cargarTrabajo() {
-			this.cargando = true
-			//console.log(this.cargando)
 			try {
-				let response = await axios.get(`/ofertas/${this.idempleo}`)
-				//console.log(response.data)
+				let response = await axios.get(`/empleos/${id}`)
+				//console.log(response)
 				this.empleo = response.data
 			}catch(e) {
-				console.log(e)
+				//console.log(e)
 			} finally {
 				this.cargando = false
 			}
-
 		},
 
 	},
@@ -145,13 +144,18 @@ export default {
 		}
 	},
 	watch: {
-		idempleo: function() {
-			this.estadoCargando(this.cargarTrabajo)
+		'$route.params': {
+			handler(newValue) {
+				const { idempleo } = newValue
+				//console.log(idempleo)
+				this.cargarEmpleo(idempleo)
+			},
+			immediate: true
 		},
 		tags: {
 			handler: function(newValue) {
 				let result = newValue.filter(tag => tag.activa)
-				console.log(result)
+				//console.log(result)
 				this.empleosBuscar({
 					areas: result.map(tag => tag.name),
 					ciudades: [],

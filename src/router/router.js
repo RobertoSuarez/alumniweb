@@ -5,12 +5,12 @@ import Public from '../layout/Public'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import store from '../store'
-import BaseEmpleos from '../pages/BaseEmpleos'
 import Noticias from '../pages/BaseNoticias'
 import Empresas from '../pages/BaseEmpresa'
 import Perfil from '../pages/BasePerfil'
 import BasePublicarEmpleo from '../pages/BasePublicarEmpleo'
-import BaseEmpleo from '../pages/BaseEmpleo'
+import EmpleoBuscador from '../pages/EmpleoBuscador'
+import EmpleoCompleto from '../pages/EmpleoCompleto'
 
 const router = new VueRouter({
     mode: 'history',
@@ -39,17 +39,17 @@ const router = new VueRouter({
 				]
 			},
 			{
-					path: '/feed',
-					redirect: 'ofertas',
+					path: '/',
+					redirect: 'empleos',
 					component: Main,
 					meta: {
 						requiresAuth: true
 					},
 					children: [
 							{
-								path: 'ofertas',
+								path: '/empleos',
 								name: 'Ofertas Laborales',
-								component: BaseEmpleos
+								component: EmpleoBuscador
 							},
 							{
 								path: '/noticias',
@@ -75,7 +75,7 @@ const router = new VueRouter({
 							{
 								path: '/empleo/:idempleo',
 								name: 'empleo',
-								component: BaseEmpleo,
+								component: EmpleoCompleto,
 								props: true
 							}
 					]

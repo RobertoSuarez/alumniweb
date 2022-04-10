@@ -68,7 +68,7 @@
 				<v-col sm="12" md="9">
 					<p class="text-h6">{{lenOfetas}} empleos encontrados</p>
 
-					<OfertaList v-if="empleos.empleos.length > 0" :ofertas="empleos.empleos"></OfertaList>
+					<EmpleoList v-if="empleos.empleos.length > 0" :ofertas="empleos.empleos"></EmpleoList>
 					<p v-else class="text-center">No hay empleos de ese tipo</p>
 
 				</v-col>
@@ -82,22 +82,24 @@
 <script>
 
 
-import OfertaList from '../components/OfertaList.vue'
+import EmpleoList from '../components/EmpleoList.vue'
 import { mapState, mapActions } from 'vuex'
 import BuscadorBarra from '../components/BuscadorBarra.vue'
 
 export default {
-	name: 'BaseEmpleos',
-	components: {  OfertaList, BuscadorBarra },
+	name: 'EmpleoBuscador',
+	components: {  EmpleoList, BuscadorBarra },
 	mounted() {
 		if (this.empleos.empleos.length < 1) {
 			this.buscar()
 		}
+
+		this.obtenerCategorias()
 	},
 	data() {
 		return {
 			cargando: false,
-			categorias: ['Mecanica', 'backend', 'frontend', 'Legales'],
+			categorias: [],
 			categoriaSeleccionada: [],
 			ciudades: ['Los Angeles', 'Buena fe'],
 			ciudadSeleccionada: [],
@@ -115,8 +117,18 @@ export default {
 				ciudades: this.ciudadSeleccionada,
 				busquedad: this.texto
 			})
-			console.log('Completado')
+			//console.log('Completado')
 			this.cargando = false
+		},
+		async obtenerCategorias() {
+			try {
+				const response = await this.axios.get('/areas')
+				//console.log(response.data)
+				this.categorias = response.data.map(cat => cat.titulo)
+				//console.log(this.categorias)
+			} catch (err) {
+				console.log(err)
+			}
 		}
 	},
 	computed: {
