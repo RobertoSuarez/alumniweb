@@ -4,9 +4,7 @@
 			<v-col cols="12" sm="12" md="8">
 				<v-card class="mb-5 pb-5" style="position: relative;">
 					<v-img src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg" height="13em" class="mb-13">
-
 					</v-img>
-
 
 					<v-avatar size="150" class="p-avatar avatar">
 						<v-img
@@ -33,7 +31,15 @@
 
 				</v-card>
 
-				<v-card class="pa-5">
+				<v-card class="mb-5">
+					<v-card-title>Resumen Persona</v-card-title>
+				</v-card>
+
+				<v-card class="mb-5">
+					<v-card-title>Historial de trabajos</v-card-title>
+				</v-card>
+
+				<v-card class="mb-5">
 					<v-card-title>
 						Educación
 						<v-spacer></v-spacer>
@@ -46,6 +52,30 @@
 							<v-divider></v-divider>
 					</v-card-text>
 				</v-card>
+
+
+				<v-card class="mb-5">
+					<v-card-title>Licencias y certificaciones</v-card-title>
+				</v-card>
+
+
+				<v-card class="mb-5">
+					<v-card-title>Habilidades</v-card-title>
+				</v-card>
+
+
+				<v-card class="mb-5">
+					<v-card-title>Idiomas</v-card-title>
+				</v-card>
+
+				<v-card class="mb-5">
+					<v-card-title>Hoja de vida en formato PDF</v-card-title>
+				</v-card>
+
+				<v-card class="mb-5">
+					<v-card-title>Sobre su proximo trabajo</v-card-title>
+				</v-card>
+
 			</v-col>
 
 			<v-col cols="12" sm="12" md="4">
@@ -60,7 +90,7 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
 	name: 'BaseFeed',
@@ -93,9 +123,7 @@ export default {
 	},
 	computed: {
 		...mapState(['token', 'user']),
-		getURLAvatar() {
-			return this.axios.defaults.baseURL+'/users/avataraws/'+ this.usuario.urlAvatar
-		}
+		...mapGetters(['getURLAvatar'])
 	}
 }
 </script>
