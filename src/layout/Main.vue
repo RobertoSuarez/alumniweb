@@ -5,73 +5,82 @@
 					color="white"
 					flat
 				>
+				<v-container class="py-0 fill-height">
 
-					<v-tabs
-						centered
-						class="ml-n9"
-						color="grey darken-1"
-					>
-						<v-tab
-							v-for="(item, index) in menu"
-							:key="index"
-							:to="{ name: item.pagina, params: item.params }"
+					<v-toolbar-title class="mr-5">
+						<router-link to="/" tag="span" class="text-h6" style="cursor: pointer">
+							{{nameApp}}
+						</router-link>
+
+					</v-toolbar-title>
+					<v-btn
+						plain
+						v-for="(item, index) in menu"
+						:key="index"
+						:to="{ name: item.pagina, params: item.params }"
+						text
 						>
-							{{ item.titulo }}
-						</v-tab>
-					</v-tabs>
+						{{ item.titulo }}
+					</v-btn>
 
-				<v-menu offset-y>
-					<template v-slot:activator="{ on, attrs }">
-						<v-btn icon v-on="on" v-bind="attrs">
-							<v-avatar size="32" color="grey darken-1 shrink" >
-								<v-img :src="getURLAvatar"></v-img>
-							</v-avatar>
-						</v-btn>
-					</template>
+					<v-spacer></v-spacer>
 
-					<v-card width="400">
-
-						<v-list>
-							<v-list-item link :to="{name: 'perfil', params: { iduser: user.id} }">
-								<v-list-item-avatar>
+					<!-- avatar del usuario -->
+					<v-menu offset-y left>
+						<template v-slot:activator="{ on, attrs }">
+							<v-btn icon v-on="on" v-bind="attrs">
+								<v-avatar size="32" color="grey darken-1 shrink" >
 									<v-img :src="getURLAvatar"></v-img>
-								</v-list-item-avatar>
+								</v-avatar>
+							</v-btn>
+						</template>
 
-								<v-list-item-content>
-									<v-list-item-title>{{user.email}}</v-list-item-title>
-									<v-list-item-subtitle>Ver Perfil</v-list-item-subtitle>
-								</v-list-item-content>
-							</v-list-item>
+						<v-card width="400">
 
-							<v-list-item>
-								<v-list-item-icon>
-									<v-icon>fas fa-adjust</v-icon>
-								</v-list-item-icon>
-								<v-list-item-content>
-									<v-list-item-title>Modo oscuro</v-list-item-title>
-								</v-list-item-content>
-								<v-list-item-action>
-									<v-switch
-										persistent-hint
-										inset
-									></v-switch>
+							<v-list>
+								<v-list-item link :to="{name: 'perfil', params: { iduser: user.id} }">
+									<v-list-item-avatar>
+										<v-img :src="getURLAvatar"></v-img>
+									</v-list-item-avatar>
 
-								</v-list-item-action>
-							</v-list-item>
+									<v-list-item-content>
+										<v-list-item-title>{{user.email}}</v-list-item-title>
+										<v-list-item-subtitle>Ver Perfil</v-list-item-subtitle>
+									</v-list-item-content>
+								</v-list-item>
 
-							<v-list-item link @click="cerrarSesion">
-								<v-list-item-icon>
-									<v-icon>fas fa-sign-out-alt</v-icon>
-								</v-list-item-icon>
-								<v-list-item-content>
-									<v-list-item-title>Cerrar sesión</v-list-item-title>
-								</v-list-item-content>
-							</v-list-item>
-						</v-list>
-					</v-card>
-				</v-menu>
+								<v-list-item>
+									<v-list-item-icon>
+										<v-icon>fas fa-adjust</v-icon>
+									</v-list-item-icon>
+									<v-list-item-content>
+										<v-list-item-title>Modo oscuro</v-list-item-title>
+									</v-list-item-content>
+									<v-list-item-action>
+										<v-switch
+											persistent-hint
+											inset
+										></v-switch>
 
-    </v-app-bar>
+									</v-list-item-action>
+								</v-list-item>
+
+								<v-list-item link @click="cerrarSesion">
+									<v-list-item-icon>
+										<v-icon>fas fa-sign-out-alt</v-icon>
+									</v-list-item-icon>
+									<v-list-item-content>
+										<v-list-item-title>Cerrar sesión</v-list-item-title>
+									</v-list-item-content>
+								</v-list-item>
+							</v-list>
+						</v-card>
+					</v-menu>
+				</v-container>
+
+
+
+		</v-app-bar>
 
 		<v-main class="grey lighten-3">
 			<router-view></router-view>
@@ -125,7 +134,8 @@ export default {
 	},
 	computed: {
 		...mapState({
-			user: state => state.user
+			user: state => state.user,
+			nameApp: state => state.nameApp
 		}),
 		...mapGetters(['getURLAvatar']),
 	}
@@ -135,6 +145,9 @@ export default {
 <style scoped>
 .fondo {
 	background: var(--v-background-base) !important;
+}
 
+.btn-active {
+	color: black !important;
 }
 </style>

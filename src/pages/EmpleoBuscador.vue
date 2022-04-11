@@ -5,62 +5,8 @@
 				<v-col sm="12" md="3">
 					<!-- Menu de opciones -->
 					<div style="position: sticky; top: 76px">
-						<p class="text-h6">Filtros</p>
+						<MenuEmpleo/>
 
-						<v-list class="mb-5" elevation="4">
-
-							<!-- Categorias -->
-							<v-list-group
-								:value="true"
-							>
-								<template v-slot:activator>
-									<v-list-item-title>Categorias</v-list-item-title>
-								</template>
-
-								<v-list-item
-									v-for="(ctg, index) in categorias"
-									:key="index"
-									dense
-								>
-									<v-checkbox
-										dense
-										hide-details
-										v-model="categoriaSeleccionada"
-										:label="ctg"
-										:value="ctg">
-									</v-checkbox>
-								</v-list-item>
-							</v-list-group>
-
-							<!-- Ciudades -->
-							<v-list-group
-								:value="false"
-							>
-								<template v-slot:activator>
-									<v-list-item-title>Ciudades</v-list-item-title>
-								</template>
-
-								<v-list-item
-									v-for="(ciudad, index) in ciudades"
-									:key="index"
-									dense
-								>
-									<v-checkbox
-										dense
-										hide-details
-										v-model="ciudadSeleccionada"
-										:label="ciudad"
-										:value="ciudad">
-									</v-checkbox>
-								</v-list-item>
-							</v-list-group>
-
-						</v-list>
-
-
-						<v-btn color="primary" :to="{name: 'publicar empleo'}" block outlined>
-							Publicar un empleo
-						</v-btn>
           </div>
 
 				</v-col>
@@ -85,10 +31,11 @@
 import EmpleoList from '../components/EmpleoList.vue'
 import { mapState, mapActions } from 'vuex'
 import BuscadorBarra from '../components/BuscadorBarra.vue'
+import MenuEmpleo from '../components/MenuEmpleo.vue'
 
 export default {
 	name: 'EmpleoBuscador',
-	components: {  EmpleoList, BuscadorBarra },
+	components: {  EmpleoList, BuscadorBarra, MenuEmpleo },
 	mounted() {
 		if (this.empleos.empleos.length < 1) {
 			this.buscar()
