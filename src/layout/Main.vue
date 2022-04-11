@@ -25,6 +25,8 @@
 
 					<v-spacer></v-spacer>
 
+					<Notificaciones/>
+
 					<!-- avatar del usuario -->
 					<MenuUsuario/>
 
@@ -43,12 +45,13 @@
 
 <script>
 import MenuUsuario from '../components/MenuUsuario.vue'
+import Notificaciones from '../components/Notificaciones.vue'
 import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
 	name: 'Main',
 	// components: { TheFooter, TheNavBar },
-	components: { MenuUsuario },
+	components: { MenuUsuario, Notificaciones },
 	mounted()  {
 		//console.log(this.user)
 		this.menu = [
