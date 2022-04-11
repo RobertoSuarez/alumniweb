@@ -3,17 +3,40 @@
 	<v-form @submit.prevent="buscar" class="contenedor">
 		<v-row align="center">
 			<v-col cols="8" sm="10">
-				<v-text-field
-					v-bind:value="value"
-					@input="$emit('input', $event)"
-					dense
-					class="mx-1"
-					label="Buscar Trabajo"
-					prepend-inner-icon="fas fa-search"
-					hide-details
-					outlined
-				>
-				</v-text-field>
+				<v-menu offset-y>
+					<template v-slot:activator="{ on, attrs }">
+						<v-text-field
+							v-on="on"
+							v-bind="attrs"
+							v-model="texto"
+							dense
+							class="mx-1"
+							label="Buscar Trabajo"
+							prepend-inner-icon="fas fa-search"
+							hide-details
+							outlined
+						>
+						</v-text-field>
+
+					</template>
+					<!-- Menu que se abre al hacer focus en el buscador -->
+					<v-card>
+						<v-card-subtitle>Busquedas recientes</v-card-subtitle>
+						<!-- Busquedas recientes -->
+						<v-list dense>
+							<v-list-item
+								v-for="(reciente, index) in recientes"
+								:key="index"
+								link
+								@click="texto = reciente"
+							>
+								<v-list-item-title >{{ reciente }}</v-list-item-title>
+							</v-list-item>
+						</v-list>
+
+					</v-card>
+
+				</v-menu>
 			</v-col>
 
 			<v-col  cols="4" sm="2" class="d-flex justify-center">
@@ -31,6 +54,7 @@ export default {
 	data() {
 		return {
 			texto: '',
+			recientes: ['Programador', 'Golang', 'JavaScript']
 		}
 	},
 	methods: {

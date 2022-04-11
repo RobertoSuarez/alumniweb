@@ -24,7 +24,7 @@ const router = new VueRouter({
 				children: [
 					{
 						path: '',
-						name: 'main',
+						name: 'incio',
 						component: Incio
 					},
 					{
