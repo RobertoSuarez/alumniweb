@@ -4,15 +4,14 @@
 		<template v-slot:activator="{ on, attrs }">
 			<div class="mr-3">
 
-				<v-badge
-					color="primary"
-					overlap dot
-				>
-
-					<v-btn icon small v-on="on" v-bind="attrs">
-						<v-icon size="25">far fa-bell</v-icon>
-					</v-btn>
-				</v-badge>
+				<v-btn icon v-on="on" v-bind="attrs">
+					<v-badge
+						color="primary"
+						overlap dot
+					>
+						<v-icon>far fa-bell</v-icon>
+					</v-badge>
+				</v-btn>
 			</div>
 		</template>
 
