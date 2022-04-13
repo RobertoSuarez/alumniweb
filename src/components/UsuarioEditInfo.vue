@@ -40,7 +40,13 @@
 					</v-col>
 				</v-row>
 
-				<v-text-field label="Nacimiento" v-model="usuario.nacimiento"></v-text-field>
+				<FechaSelector
+					label="Fecha de nacimiento"
+					:max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+					:date="usuario.nacimiento"
+					@fecha="usuario.nacimiento = $event"
+				/>
+
 				<v-select
 					:items="['Masculino', 'Femenino', 'Otro']"
 					label="Genero"
@@ -48,7 +54,11 @@
 				</v-select>
 				<v-row>
 					<v-col cols="6">
-						<v-text-field label="Fecha Graduación" v-model="usuario.fechaGraduacion"></v-text-field>
+						<!-- <v-text-field label="Fecha Graduación" v-model="usuario.fechaGraduacion"></v-text-field> -->
+						<FechaSelector
+							label="Fecha Graduación"
+							:date="usuario.fechaGraduacion"
+							@fecha="usuario.fechaGraduacion = $event"/>
 					</v-col>
 					<v-col cols="6">
 						<v-text-field label="Nivel Academico" v-model="usuario.nivelAcademico"></v-text-field>
@@ -67,8 +77,10 @@
 
 <script>
 import { mapActions } from 'vuex'
+import FechaSelector from '../components/FechaSelector.vue'
 export default {
 	name: 'UsuarioEditInfo',
+	components: { FechaSelector },
 	props: {
 		usuario: Object
 	},
@@ -76,7 +88,13 @@ export default {
 		return {
 			menu: false,
 			cargando: false,
+			date: null,
+			menudate: false,
+			activePicker: null
 		}
+	},
+	mounted() {
+		this.convertirFecha(this.usuario.nacimiento)
 	},
 	methods: {
 		...mapActions('usuarios', ['actualizarDatos']),
@@ -102,6 +120,15 @@ export default {
 			this.cargando = false
 			console.log(ok)
 			this.menu = false
+		},
+		save(date) {
+			console.log(date)
+			this.$refs.menu.save(date)
+		}
+	},
+	watch: {
+		menudate(val) {
+			val && setTimeout(() => (this.activePicker = 'YEAR'))
 		}
 	}
 

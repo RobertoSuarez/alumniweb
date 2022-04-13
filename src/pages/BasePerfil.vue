@@ -23,6 +23,8 @@
 						<div class="">Genero: {{ perfil.genero }}</div>
 						<div>{{ perfil.identificacionTipo }}: {{ perfil.numeroIdentificacion}}</div>
 						<div>Nivel Academico: {{ perfil.nivelAcademico}}</div>
+						<div>Nacimiento: {{ formatoFecha(perfil.nacimiento) }}</div>
+						<div>Fecha de graduación: {{ formatoFecha(perfil.fechaGraduacion) }}</div>
 					</v-card-text>
 
 					<v-card-actions>
@@ -87,6 +89,8 @@
 <script>
 import UsuarioEditInfo from '../components/UsuarioEditInfo.vue'
 import { mapState, mapGetters, mapActions } from 'vuex'
+//import format from 'date-fns/format'
+//import esLocale from 'date-fns/locale/es'
 
 export default {
 	name: 'BaseFeed',
@@ -99,7 +103,10 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions('usuarios', ['getPerfil'])
+		...mapActions('usuarios', ['getPerfil']),
+		formatoFecha(date) {
+			return date.substring(0, 10)
+		}
 	},
 	computed: {
 		...mapState(['token', 'user']),
