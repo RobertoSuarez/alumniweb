@@ -94,7 +94,7 @@ export default {
 		}
 	},
 	mounted() {
-		this.convertirFecha(this.usuario.nacimiento)
+		//this.convertirFecha(this.usuario.nacimiento)
 	},
 	methods: {
 		...mapActions('usuarios', ['actualizarDatos']),

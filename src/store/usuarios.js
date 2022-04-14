@@ -39,6 +39,21 @@ const usuarios = {
 			}
 
 			return ok
+		},
+
+		async actualizarDescripcion({ rootGetters }, {id, dato}) {
+			console.log(id, dato)
+			let ok = false
+			try {
+				const response = await axios.put(`/usuarios/${id}/descripcion`, dato, rootGetters.tokenHeader)
+				if (response.status === 200) {
+					ok = true
+				}
+			} catch(err) {
+				console.log(err)
+			}
+
+			return ok
 		}
 
 	},

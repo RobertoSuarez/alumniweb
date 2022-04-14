@@ -28,16 +28,15 @@
 					</v-card-text>
 
 					<v-card-actions>
-						<UsuarioEditInfo :usuario="perfil"/>
+						<UsuarioEditInfo v-if="perfil" :usuario="perfil"/>
 					</v-card-actions>
 				</v-card>
 				<v-skeleton-loader v-else type="card">
 
 				</v-skeleton-loader>
 
-				<v-card class="mb-5">
-					<v-card-title>Resumen Persona</v-card-title>
-				</v-card>
+				<!-- panel de descripción -->
+				<PerfilDescripcion v-if="perfil" :perfil="perfil" @guardar="perfil.descripcion = $event"/>
 
 				<v-card class="mb-5">
 					<v-card-title>Historial de trabajos</v-card-title>
@@ -88,18 +87,20 @@
 
 <script>
 import UsuarioEditInfo from '../components/UsuarioEditInfo.vue'
+import PerfilDescripcion from '../components/PerfilDescripcion.vue'
 import { mapState, mapGetters, mapActions } from 'vuex'
 //import format from 'date-fns/format'
 //import esLocale from 'date-fns/locale/es'
 
 export default {
 	name: 'BaseFeed',
-	components: { UsuarioEditInfo },
+	components: { UsuarioEditInfo, PerfilDescripcion },
 	props: ['iduser'],
 	data() {
 		return {
 			perfil: null,
-			id: null
+			id: null,
+			editdescripcion: false,
 		}
 	},
 	methods: {

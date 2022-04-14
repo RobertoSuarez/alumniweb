@@ -17,9 +17,8 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Raleway");
-
-.application {
-  font-family: "Raleway";
-}
+/*
+#app {
+  font-family: "Lato" !important;
+} */
 </style>
