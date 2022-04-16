@@ -57,6 +57,7 @@
 						<!-- <v-text-field label="Fecha Graduación" v-model="usuario.fechaGraduacion"></v-text-field> -->
 						<FechaSelector
 							label="Fecha Graduación"
+							:max="(new Date(2025, 0)).toISOString().substring(0,10)"
 							:date="usuario.fechaGraduacion"
 							@fecha="usuario.fechaGraduacion = $event"/>
 					</v-col>

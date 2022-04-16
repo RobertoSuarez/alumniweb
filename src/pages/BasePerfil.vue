@@ -39,7 +39,32 @@
 				<PerfilDescripcion v-if="perfil" :perfil="perfil" @guardar="perfil.descripcion = $event"/>
 
 				<v-card class="mb-5">
-					<v-card-title>Historial de trabajos</v-card-title>
+					<v-card-title>
+						Historial de trabajos
+						<v-spacer></v-spacer>
+						<v-btn text plain color="primary">Añadir trabajo</v-btn>
+					</v-card-title>
+
+
+					<v-list >
+						<v-list-item
+							two-line
+							v-for="(trabajo, index) in perfil.trabajos"
+							:key="index">
+								<v-list-item-content>
+									<v-list-item-title>Cargo: {{ trabajo.cargo }}</v-list-item-title>
+									<v-list-item-subtitle>Area: {{ trabajo.area }}</v-list-item-subtitle>
+									<v-list-item-content>
+										<div class="text-body-2">Descripción del trabajo</div>
+									</v-list-item-content>
+								</v-list-item-content>
+								<v-list-item-action>
+									<v-btn text plain color="primary">Editar</v-btn>
+									<v-btn text plain>Eliminar</v-btn>
+								</v-list-item-action>
+						</v-list-item>
+					</v-list>
+
 				</v-card>
 
 				<v-card class="mb-5">
