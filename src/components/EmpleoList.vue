@@ -9,6 +9,14 @@
 				@eliminar="eliminar(oferta)"
 			>
 			</EmpleoListItem>
+			
+			<v-card elevation="0" color="transparent">
+				<v-card-actions>
+					<v-spacer></v-spacer>
+					<v-btn color="primary" outlined @click="masEmpleos">Mas empleos</v-btn>
+				</v-card-actions>
+
+			</v-card>
 
 			<v-snackbar
 				v-model="snack"
@@ -47,7 +55,14 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions('empleos', ['guardarEmpleoUsuario', 'eliminarEmpleoUsuario', 'verificarGuardadosUsuario']),
+		...mapActions('empleos', 
+			[
+				'guardarEmpleoUsuario', 
+				'eliminarEmpleoUsuario', 
+				'verificarGuardadosUsuario',
+				"masEmpleos"
+			]),
+
 		// revisa si los empleos que se muestran ya estan guardado por el usuario
 		async Guardados(ids) {
 			try {

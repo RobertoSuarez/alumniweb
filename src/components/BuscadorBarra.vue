@@ -70,6 +70,12 @@ export default {
 			recientes: ['Programador', 'Golang', 'JavaScript']
 		}
 	},
+	mounted() {
+		this.buscarEmpleos({
+			titulo: this.texto,
+			ciudad: this.ciudad
+		})
+	},
 	methods: {
 		...mapActions('empleos', ['buscarEmpleos']),
 		buscar() {

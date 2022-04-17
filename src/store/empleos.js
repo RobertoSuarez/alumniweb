@@ -6,11 +6,10 @@ const empleos = {
 	state: () => ({
 		contador: 5,
 		empleos: [],
-		query: {
-			area: [],
-			ciudades: [],
-			busquedad: '',
-		},
+		page: 1,
+		page_size: 3,
+		titulo: '',
+		ciudad: '',
 	}),
 	mutations: {
 		incrementar(state) {
@@ -19,19 +18,42 @@ const empleos = {
 		setEmpleos(state, payload) {
 			//console.log("set empleos from api rest")
 			state.empleos = payload
+		},
+		setParametros(state, { titulo, ciudad, page}) {
+			state.titulo = titulo
+			state.ciudad = ciudad
+			state.page = page
+		},
+		addPage(state) {
+			state.page++
+		},
+		agregarEmpleos(state, payload) {
+			const todosEmpleos = [...state.empleos, ...payload]
+			//console.log('Todos los empleos', todosEmpleos)
+			state.empleos = todosEmpleos
 		}
 	},
 	actions: {
 		incrementarContador({ commit }) {
 			commit('incrementar')
 		},
-		async buscarEmpleos({ commit, rootGetters }, { titulo, ciudad }) {
+		async buscarEmpleos({ state, commit, rootGetters }, { titulo, ciudad }) {
 			//console.log('Buscando empleo con la api', state.contador)
 			//console.log(payload)
+			// Establecemos los parametros de busquedad, que nos 
+			// van a servir para agregar la siguientes paginas de busquedad
+			commit('setParametros', {
+				titulo,
+				ciudad,
+				page: 1
+			})
+
 			try {
 				const params = new URLSearchParams()
 				params.append('titulo', titulo)
 				params.append('ciudad', ciudad)
+				params.append('page', state.page)
+				params.append('page_size', state.page_size)
 				// params.append('ciudades', payload.ciudades)
 				// params.append('areas', payload.areas)
 
@@ -40,12 +62,34 @@ const empleos = {
 					params: params
 				})
 
-				console.log('Respuesta del api', response.status, response.data)
+				//console.log('Respuesta del api', response.status, response.data)
+				
 				commit('setEmpleos', response.data)
 			} catch(e) {
 				console.log(e)
 			}
 
+		},
+		async masEmpleos({ state, commit, rootGetters }) {
+			commit('addPage')
+
+			try {
+				const params = new URLSearchParams()
+				params.append('titulo', state.titulo)
+				params.append('ciudad', state.ciudad)
+				params.append('page', state.page)
+				params.append('page_size', state.page_size)
+
+				const response = await axios.get('/empleos', {
+					headers: rootGetters.tokenHeader.headers,
+					params: params
+				})
+
+				commit('agregarEmpleos', response.data)
+				//commit('setEmpleos', response.data)
+			} catch(e) {
+				console.log(e)
+			}
 		},
 		async crearEmpleo(_, payload) {
 

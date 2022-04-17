@@ -11,6 +11,7 @@ import Perfil from '../pages/BasePerfil'
 import BasePublicarEmpleo from '../pages/BasePublicarEmpleo'
 import EmpleoBuscador from '../pages/EmpleoBuscador'
 import EmpleoCompleto from '../pages/EmpleoCompleto'
+import MisEmpleos from '../pages/MisEmpleos'
 
 const router = new VueRouter({
     mode: 'history',
@@ -77,6 +78,11 @@ const router = new VueRouter({
 								name: 'empleo',
 								component: EmpleoCompleto,
 								props: true
+							},
+							{
+								path: '/mis-empleos',
+								name: 'mis-empleos',
+								component: MisEmpleos
 							}
 					]
 			},
