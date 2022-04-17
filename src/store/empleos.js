@@ -25,16 +25,22 @@ const empleos = {
 		incrementarContador({ commit }) {
 			commit('incrementar')
 		},
-		async buscar({ commit, rootGetters }, payload) {
+		async buscarEmpleos({ commit, rootGetters }, { titulo, ciudad }) {
 			//console.log('Buscando empleo con la api', state.contador)
 			//console.log(payload)
 			try {
 				const params = new URLSearchParams()
-				params.append('busquedad', payload.busquedad)
-				params.append('ciudades', payload.ciudades)
-				params.append('areas', payload.areas)
+				params.append('titulo', titulo)
+				params.append('ciudad', ciudad)
+				// params.append('ciudades', payload.ciudades)
+				// params.append('areas', payload.areas)
 
-				const response = await axios.get('/empleos', rootGetters.tokenHeader)
+				const response = await axios.get('/empleos', {
+					headers: rootGetters.tokenHeader.headers,
+					params: params
+				})
+
+				console.log('Respuesta del api', response.status, response.data)
 				commit('setEmpleos', response.data)
 			} catch(e) {
 				console.log(e)

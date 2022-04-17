@@ -1,8 +1,8 @@
 <template>
 	<!-- buscador -->
 	<v-form @submit.prevent="buscar" class="contenedor">
-		<v-row align="center">
-			<v-col cols="8" sm="10">
+		<v-row align="end">
+			<v-col cols="6">
 				<v-menu offset-y>
 					<template v-slot:activator="{ on, attrs }">
 						<v-text-field
@@ -39,7 +39,19 @@
 				</v-menu>
 			</v-col>
 
-			<v-col  cols="4" sm="2" class="d-flex justify-center">
+			<!-- selecion de ciudad -->
+			<v-col cols="4">
+				<v-select 
+					v-model="ciudad"
+					label="Ciudad"
+					outlined 
+					hide-details
+					dense 
+					:items="['Quevedo', 'Valencia']">
+				</v-select>
+			</v-col>
+
+			<v-col  cols="2" class="d-flex justify-center">
 				<v-btn type="submit" :loading="cargando" block color="secondary">Buscar</v-btn>
 			</v-col>
 		</v-row>
@@ -47,29 +59,29 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
 	name: 'BuscadorBarra',
 	props: ['value', 'cargando'],
 	data() {
 		return {
 			texto: '',
+			ciudad: '',
 			recientes: ['Programador', 'Golang', 'JavaScript']
 		}
 	},
 	methods: {
+		...mapActions('empleos', ['buscarEmpleos']),
 		buscar() {
-			//this.empleosBuscar()
-			this.$emit('buscar')
-
-			//this.$store.dispatch('a/incrementarContador')
+			console.log('Buscar empleo en la api rest')	
+			this.buscarEmpleos({
+				titulo: this.texto,
+				ciudad: this.ciudad
+			})
 		}
 	},
 	computed: {
-		...mapState({
-			a: state => state.a,
-			empleos: state => state.empleos
-		}),
+
 	}
 
 }

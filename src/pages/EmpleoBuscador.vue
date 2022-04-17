@@ -1,14 +1,12 @@
 <template>
 		<v-container>
-			<BuscadorBarra v-model="texto" @buscar="buscar" :cargando="cargando"></BuscadorBarra>
+			<BuscadorBarra></BuscadorBarra>
 			<v-row class="mt-2">
 				<v-col sm="12" md="3">
 					<!-- Menu de opciones -->
 					<div style="position: sticky; top: 76px">
 						<MenuEmpleo/>
-
-          </div>
-
+					</div>
 				</v-col>
 
 				<v-col sm="12" md="9">
@@ -29,7 +27,7 @@
 
 
 import EmpleoList from '../components/EmpleoList.vue'
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import BuscadorBarra from '../components/BuscadorBarra.vue'
 import MenuEmpleo from '../components/MenuEmpleo.vue'
 
@@ -37,11 +35,6 @@ export default {
 	name: 'EmpleoBuscador',
 	components: {  EmpleoList, BuscadorBarra, MenuEmpleo },
 	mounted() {
-		if (this.empleos.empleos.length < 1) {
-			this.buscar()
-		}
-
-		this.obtenerCategorias()
 	},
 	data() {
 		return {
@@ -54,29 +47,6 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions({
-			empleosBuscar: 'empleos/buscar'
-		}),
-		async buscar() {
-			this.cargando = true
-			await this.empleosBuscar({
-				areas: this.categoriaSeleccionada,
-				ciudades: this.ciudadSeleccionada,
-				busquedad: this.texto
-			})
-			//console.log('Completado')
-			this.cargando = false
-		},
-		async obtenerCategorias() {
-			try {
-				const response = await this.axios.get('/areas')
-				//console.log(response.data)
-				this.categorias = response.data.map(cat => cat.titulo)
-				//console.log(this.categorias)
-			} catch (err) {
-				console.log(err)
-			}
-		}
 	},
 	computed: {
 		...mapState({
