@@ -10,7 +10,7 @@
 			>
 			</EmpleoListItem>
 			
-			<v-card elevation="0" color="transparent">
+			<v-card v-if="masEmpleo" elevation="0" color="transparent">
 				<v-card-actions>
 					<v-spacer></v-spacer>
 					<v-btn color="primary" outlined @click="masEmpleos">Mas empleos</v-btn>
@@ -44,7 +44,12 @@ export default {
 	props: {
 		ofertas: {
 			type: Array,
-			required: true,
+			required: false,
+		},
+		masEmpleo: {
+			type: Boolean,
+			require: false,
+			default: false
 		}
 	},
 	data() {
@@ -96,6 +101,9 @@ export default {
 	watch: {
 		ofertas: {
 			async handler(newOfertas) {
+				if (!newOfertas) {
+					return
+				}
 				let ids = newOfertas.map(o => o.id)
 				//this.Guardados(ids)
 				this.empleosGuardados = await this.verificarGuardadosUsuario(ids)

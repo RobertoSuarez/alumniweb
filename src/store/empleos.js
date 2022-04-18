@@ -7,7 +7,7 @@ const empleos = {
 		contador: 5,
 		empleos: [],
 		page: 1,
-		page_size: 3,
+		page_size: 10,
 		titulo: '',
 		ciudad: '',
 	}),
@@ -175,6 +175,18 @@ const empleos = {
 				console.log(err)
 			}
 			return ok
+		},
+		async misEmpleos({ rootGetters }) {
+			let empleos = []
+			try {
+				const response = await axios.get(`/empleos/guardados`, rootGetters.tokenHeader)
+				if (response.status === 200) {
+					empleos = response.data
+				}
+			} catch(err) {
+				console.log(err)
+			}
+			return empleos
 		}
 	},
 	getters: {

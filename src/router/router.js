@@ -12,6 +12,8 @@ import BasePublicarEmpleo from '../pages/BasePublicarEmpleo'
 import EmpleoBuscador from '../pages/EmpleoBuscador'
 import EmpleoCompleto from '../pages/EmpleoCompleto'
 import MisEmpleos from '../pages/MisEmpleos'
+import EmpleosGuardados from '../components/EmpleosGuardados'
+import EmpleosPublicados from '../components/EmpleosPublicados'
 
 const router = new VueRouter({
     mode: 'history',
@@ -82,7 +84,20 @@ const router = new VueRouter({
 							{
 								path: '/mis-empleos',
 								name: 'mis-empleos',
-								component: MisEmpleos
+								redirect: '/mis-empleos/guardados',
+								component: MisEmpleos,
+								children: [
+									{
+										path: 'guardados',
+										name: 'empleos-guardados',
+										component: EmpleosGuardados,
+									},
+									{
+										path: 'publicados',
+										name: 'empleos-publicados',
+										component: EmpleosPublicados,
+									},
+								]
 							}
 					]
 			},

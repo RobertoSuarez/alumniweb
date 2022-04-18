@@ -32,7 +32,7 @@ export default {
 				{
 					titulo: 'Mis empleos',
 					icon: 'fas fa-bookmark',
-					to: { name: 'noticias' }
+					to: { name: 'mis-empleos' }
 				},
 				{
 					titulo: 'Mis aplicaciones',
