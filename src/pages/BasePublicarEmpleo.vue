@@ -1,135 +1,118 @@
 <template>
+	<v-container>
+		<v-row justify="center">
+			<v-col cols="10" md="6">
+				<div class="text-h4 text-center my-5">Creando un empleo</div>
+				<v-stepper
+					v-model="paso"
+					vertical
+				>
+					<v-stepper-step
+						:complete="paso > 1"
+						step="1"
+					>
+						Datos principales
+					</v-stepper-step>
 
-		<v-container>
-			<v-row  justify="center">
-				<v-col cols="10" md="7">
-					<p class="text-h3 mb-10 font-weight-bold">Publicar un empleo</p>
+					<v-stepper-content step="1">
+						<v-card>
+							<v-card-text>
+								<v-text-field label="Título" v-model="empleo.titulo"></v-text-field>
+								<v-textarea label="Descripción del empleo" v-model="empleo.descripcion"></v-textarea>
+							</v-card-text>
+							<v-card-actions>
+								<v-spacer></v-spacer>
+								<v-btn @click="siguiente" color="primary" text>Siguiente</v-btn>
+							</v-card-actions>
+						</v-card>
+					</v-stepper-content>
 
-
-							<v-form @click.prevent="crearEmpleo">
-								<v-text-field
-									background-color="white"
-									label="Titulo de tu oferta laboral"
-									outlined
-									v-model="empleo.titulo"
-								></v-text-field>
-								<v-textarea
-									v-model="empleo.descripcion"
-									background-color="white"
-									label="Descripción"
-									outlined
-									hide-details
-								></v-textarea>
-								<v-checkbox
-									v-model="empleo.postulanteDiscapacidad"
-									label="Este trabajo es apto para personas con discapacidad.">
-								</v-checkbox>
-
-								<v-row class="">
+					<v-stepper-step
+						:complete="paso > 2"
+						step="2"
+					>
+						Infomración del empleo
+					</v-stepper-step>
+					<v-stepper-content step="2">
+						<v-card>
+							<v-card-text>
+								<v-text-field label="Profesión" v-model="empleo.profesion"></v-text-field>
+								<v-text-field label="Puesto" v-model="empleo.puesto"></v-text-field>
+								<v-text-field label="Tipo de empleo" v-model="empleo.tipoEmpleo"></v-text-field>
+								<v-row>
 									<v-col cols="6">
-										<v-text-field
-											v-model="empleo.area"
-											background-color="white"
-											label="Aréa de empleo"
-											outlined
-										></v-text-field>
-
-									</v-col>
-
-									<v-col cols="6">
-										<v-text-field
-											v-model="empleo.subarea"
-											background-color="white"
-											label="Subárea de empleo"
-											outlined
-										></v-text-field>
-									</v-col>
-
-									<v-col cols="6">
-										<v-text-field
-											v-model="empleo.provincia"
-											background-color="white"
-											label="Provincia"
-											outlined
-										></v-text-field>
-
+										<v-select 
+											:items="[1,2]"
+											label="Area" 
+											v-model="empleo.areaid">
+										</v-select>
 									</v-col>
 									<v-col cols="6">
-										<v-text-field
-											v-model="empleo.ciudad"
-											background-color="white"
-											label="Ciudad"
-											outlined
-										></v-text-field>
-
+										<v-select 
+											:items="[1,2]"
+											label="Subarea" 
+											v-model="empleo.subareaid">
+										</v-select>
 									</v-col>
 								</v-row>
-
-								<v-text-field
-									v-model="empleo.puesto"
-									background-color="white"
-									label="Puesto"
-									outlined
-								></v-text-field>
-
-								<v-text-field
-									v-model="empleo.tipoEmpleo"
-									background-color="white"
-									label="Tipo de Empleo"
-									outlined
-								></v-text-field>
-
-
-								<v-text-field
-									v-model="empleo.sueldo"
-									background-color="white"
-									label="sueldo"
-									outlined
-								></v-text-field>
-
-								<v-text-field
-									v-model="empleo.tiempoExperiencia"
-									background-color="white"
-									label="tiempoExperiencia"
-									outlined
-								></v-text-field>
-
-								<v-text-field
+								<v-text-field label="Sueldo" v-model="empleo.sueldo"></v-text-field>
+								<v-text-field label="Tiempo de experiencia" v-model="empleo.tiempoExperiencia"></v-text-field>
+								<v-select 
 									v-model="empleo.jornada"
-									background-color="white"
-									label="jornada"
-									outlined
-								></v-text-field>
-
-								<v-text-field
+									label="Jornada" 
+									:items="['Completa', 'Medio tiempo']">
+								</v-select>
+								<v-select 
 									v-model="empleo.tipoContrato"
-									background-color="white"
-									label="tipoContrato"
-									outlined
-								></v-text-field>
+									label="Tipo de contrato" 
+									:items="['Remoto', 'Presencial']">
+								</v-select>
+								<v-text-field 
+									v-model="empleo.conocimientosAdicionales"
+									label="Conociminetos adicionales">
+								</v-text-field>
+								<v-select 
+									v-model="empleo.ciudad"
+									label="Ciudad" 
+									:items="['Quevedo', 'Valencia']">
+								</v-select>
+								<v-checkbox 
+									v-model="empleo.postulanteDiscapacidad"
+									label="Trabajo apto para personas con discapacidad">
+								</v-checkbox>
+							</v-card-text>
+							<v-card-actions>
+								<v-spacer></v-spacer>
+								<v-btn @click="atras" text>Atras</v-btn>
+								<v-btn @click="siguiente" color="primary" text>Siguiente</v-btn>
+							</v-card-actions>
+						</v-card>
+					</v-stepper-content>
 
-								<div class="d-flex">
-									<v-spacer></v-spacer>
-									<v-btn text>Cancelar</v-btn>
-									<v-btn color="primary" @click.prevent="crearEmpleo" class="ml-3" >Publicar Empleo</v-btn>
+					<v-stepper-step
+						:complete="paso > 3"
+						step="3"
+					>
+						Infomración de la empresa
+					</v-stepper-step>
 
-								</div>
+					<v-stepper-content step="3">
+						<v-card>
+							<v-card-text>
+								<v-select label="Empresa" :items="['Coca cola', 'Micronet']"></v-select>
+							</v-card-text>
+							<v-card-actions>
+								<v-spacer></v-spacer>
+								<v-btn @click="atras" text>Atras</v-btn>
+								<v-btn @click="crear" color="primary">Crear publicación</v-btn>
+							</v-card-actions>
+						</v-card>
+					</v-stepper-content>
 
-							</v-form>
-
-
-
-
-				</v-col>
-
-				<!-- <v-col cols="4">
-					<v-sheet height="400px" class="panelimagen">
-						sdf
-					</v-sheet>
-				</v-col> -->
-
-			</v-row>
-		</v-container>
+				</v-stepper>
+			</v-col>
+		</v-row>
+	</v-container>
 </template>
 
 <script>
@@ -147,7 +130,8 @@ export default {
 				profesion: '',
 				puesto: '',
 				tipoEmpleo: '',
-				area: '',
+				areaid: 0,
+				subareaid: 0,
 				sueldo: '',
 				tiempoExperiencia: '',
 				jornada: '',
@@ -155,27 +139,22 @@ export default {
 				conocimientosAdicionales: '',
 				ciudad: '',
 				postulanteDiscapacidad: false,
+				empresaid: 1,
 
 			},
 		}
 	},
 	methods: {
-		...mapActions({
-			empleosCrear: 'empleos/crearEmpleo'
-		}),
-		async crearEmpleo() {
-			const data = await this.empleosCrear(this.empleo)
+		...mapActions('empleos', ['crearEmpleo']),
+		async crear() {
+			let data = this.crearEmpleo(this.empleo)
 			if (data) {
-				console.log('Empleo creado correctamente')
-				this.empleo = {}
-				this.$router.push({
-					name: 'Ofertas Laborales'
-				})
+				console.log('Creado con exito')
+				this.$router.push({ name: 'Ofertas Laborales'})
 			} else {
-				console.log('Parece que fallo algo')
+				console.log('Fatal no se creo nada')
 			}
-
-
+			
 		},
 		siguiente() {
 			this.paso++

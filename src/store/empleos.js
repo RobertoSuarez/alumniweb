@@ -91,10 +91,10 @@ const empleos = {
 				console.log(e)
 			}
 		},
-		async crearEmpleo(_, payload) {
+		async crearEmpleo({ rootGetters }, payload) {
 
 			try {
-				const response = await axios.post('/ofertas', payload)
+				const response = await axios.post('/empleos', payload, rootGetters.tokenHeader)
 				return response.data
 
 			}catch(e) {
@@ -176,10 +176,22 @@ const empleos = {
 			}
 			return ok
 		},
-		async misEmpleos({ rootGetters }) {
+		async misEmpleosGuardados({ rootGetters }) {
 			let empleos = []
 			try {
 				const response = await axios.get(`/empleos/guardados`, rootGetters.tokenHeader)
+				if (response.status === 200) {
+					empleos = response.data
+				}
+			} catch(err) {
+				console.log(err)
+			}
+			return empleos
+		},
+		async misEmpleosAplicados({ rootGetters }) {
+			let empleos = []
+			try {
+				const response = await axios.get(`/empleos/aplicar`, rootGetters.tokenHeader)
 				if (response.status === 200) {
 					empleos = response.data
 				}

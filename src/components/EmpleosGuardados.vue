@@ -44,11 +44,15 @@ export default {
         this.seleccionar('Guardado')
     },
     methods: {
-        ...mapActions('empleos', ['misEmpleos']),
+        ...mapActions('empleos', ['misEmpleosGuardados', 'misEmpleosAplicados']),
         async seleccionar(item) {
             this.dato = item
-            console.log(item)
-            this.empleos = await this.misEmpleos()
+            if (item === 'Guardado') {
+                this.empleos = await this.misEmpleosGuardados()
+            } else if (item === 'Aplicado') {
+                //console.log('Empleos aplicados')
+                this.empleos = await this.misEmpleosAplicados()
+            }
 
         }
     }

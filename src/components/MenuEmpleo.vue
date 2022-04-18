@@ -34,11 +34,11 @@ export default {
 					icon: 'fas fa-bookmark',
 					to: { name: 'mis-empleos' }
 				},
-				{
-					titulo: 'Mis aplicaciones',
-					icon: 'fas fa-thumbtack',
-					to: { name: 'noticias' }
-				},
+				// {
+				// 	titulo: 'Mis aplicaciones',
+				// 	icon: 'fas fa-thumbtack',
+				// 	to: { name: 'noticias' }
+				// },
 				{
 					titulo: 'Publicar un empleo',
 					icon: 'fas fa-bullhorn',
