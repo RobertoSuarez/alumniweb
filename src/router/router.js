@@ -119,7 +119,7 @@ router.beforeEach((to, from, next) => {
 	// redirige a la pagina de main, para ver el login, o registrarse
 	if (to.matched.some(record => record.meta.requiresAuth) && !token) {
 		next({
-			name: 'main'
+			name: 'incio'
 		})
 	}
 

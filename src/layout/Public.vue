@@ -2,22 +2,19 @@
 	<v-app>
 		<v-app-bar
 			app
-			color="white"
+			color="primary"
 			elevate-on-scroll
 		>
 			<v-container class="d-flex align-center">
-
-				<span class="text-h4 mr-5">Alumni UTEQ</span>
-
-				<v-btn class="mx-1" text small>Noticias</v-btn>
-				<v-btn class="mx-1" text small>Ofertas laborales</v-btn>
-				<v-btn class="mx-1" text small>Empresas</v-btn>
-
+				<img src="../assets/logo2.png" width="100"/>
+			
+				<v-btn class="mx-1" text small color="white" @click="$vuetify.goTo('#noticias')">Noticias</v-btn>
+				<v-btn class="mx-1" text small color="white" @click="$vuetify.goTo('#empleo')">Ofertas laborales</v-btn>
+				<v-btn class="mx-1" text small color="white" @click="$vuetify.goTo('#empresa')">Empresas</v-btn>
 
 				<v-spacer></v-spacer>
 
-				<v-btn color="primary" dark @click="abrirModal('login')">Inciar Sesión</v-btn>
-
+				<v-btn color="info" dark @click="abrirModal('login')">Inciar Sesión</v-btn>
 			</v-container>
 
 
