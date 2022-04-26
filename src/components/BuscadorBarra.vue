@@ -51,7 +51,7 @@
 				</v-select>
 			</v-col>
 
-			<v-col  cols="2" class="d-flex justify-center">
+			<v-col cols="2" class="d-flex justify-center">
 				<v-btn type="submit" :loading="cargando" block color="secondary">Buscar</v-btn>
 			</v-col>
 		</v-row>
@@ -62,12 +62,13 @@
 import { mapActions } from 'vuex'
 export default {
 	name: 'BuscadorBarra',
-	props: ['value', 'cargando'],
+	props: ['value'],
 	data() {
 		return {
 			texto: '',
 			ciudad: '',
-			recientes: ['Programador', 'Golang', 'JavaScript']
+			recientes: ['Programador', 'Golang', 'JavaScript'],
+			cargando: false,
 		}
 	},
 	mounted() {
@@ -78,12 +79,14 @@ export default {
 	},
 	methods: {
 		...mapActions('empleos', ['buscarEmpleos']),
-		buscar() {
+		async buscar() {
+			this.cargando = true
 			console.log('Buscar empleo en la api rest')	
-			this.buscarEmpleos({
+			await this.buscarEmpleos({
 				titulo: this.texto,
 				ciudad: this.ciudad
 			})
+			this.cargando = false
 		}
 	},
 	computed: {

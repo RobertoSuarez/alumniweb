@@ -18,7 +18,7 @@ export default new Vuetify({
 		themes: {
 			light: {
 				primary: '#009549',
-				secondary: colors.pink.darken1,
+				secondary: '#e94948',
 				muted: '#F3F3F3',
 				accent: '#ffc107',
 				error: '#CC2872',

@@ -6,7 +6,7 @@
 
 				<v-btn icon v-on="on" v-bind="attrs">
 					<v-badge
-						color="primary"
+						color="warning"
 						overlap dot
 					>
 						<v-icon>far fa-bell</v-icon>

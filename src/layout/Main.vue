@@ -2,14 +2,15 @@
   <v-app>
 		<v-app-bar
 					app
-					color="white"
+					color="primary"
 					flat
+					dark
 				>
 				<v-container class="py-0 fill-height">
 
-					<v-toolbar-title class="mr-5">
-						<router-link to="/" tag="span" class="text-h6" style="cursor: pointer">
-							{{nameApp}}
+					<v-toolbar-title class="d-flex mr-3">
+						<router-link to="/" v-slot="{ navigate }" custom>
+							<img src="../assets/logo2.png" @click="navigate" width="100" style="cursor: pointer;"/>
 						</router-link>
 
 					</v-toolbar-title>
