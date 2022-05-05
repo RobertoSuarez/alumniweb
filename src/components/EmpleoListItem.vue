@@ -1,26 +1,42 @@
 <template>
 	<v-card
-		elevation="4"
+		elevation="1"
 		class="mb-2"
 		:to="{name: 'empleo', params: {idempleo: oferta.id}}"
 		active-class="card_empleo"
 		link
 	>
 
-		<v-list-item three-line>
+		<v-list-item three-line link>
 			<v-list-item-avatar tile size="60">
 				<v-img src="/empresa.jfif"></v-img>
 			</v-list-item-avatar>
 			<v-list-item-content>
-				<v-list-item-title class="text--primary font-weight-bold" v-text="oferta.titulo"></v-list-item-title>
-				<v-list-item-subtitle class="text--primary">{{oferta.puesto}}</v-list-item-subtitle>
-				<v-list-item-subtitle>{{oferta.ciudad}}</v-list-item-subtitle>
-				<v-list-item-subtitle><span class="text--primary">Area: {{oferta.area.titulo}}</span> > {{oferta.subarea.titulo}}</v-list-item-subtitle>
+				<v-list-item-title 
+					class="text--black text--bold card_titulo text-uppercase font-weight-bold">
+					{{oferta.titulo}}
+				</v-list-item-title>
+
+				<v-list-item-subtitle 
+					class="text--secondary"
+				>
+					{{oferta.puesto}}
+				</v-list-item-subtitle>
+
+				<v-list-item-subtitle>
+					{{oferta.ciudad.Nombre ? oferta.ciudad.Nombre: 'No se especifico'}}
+				</v-list-item-subtitle>
+				<v-list-item-subtitle>
+					<span class="text--primary">Area: </span> {{oferta.area.titulo}} 
+					<span class="text--primary">Subarea: </span> {{oferta.subarea.titulo}}
+				</v-list-item-subtitle>
 				<!-- <v-list-item-subtitle>{{oferta.subarea.titulo}}</v-list-item-subtitle> -->
-				<v-list-item-subtitle>Publicado: {{fechaRelativa }}</v-list-item-subtitle>
+				<v-list-item-subtitle>
+					Publicado: {{fechaRelativa }}
+				</v-list-item-subtitle>
 			</v-list-item-content>
 			<v-list-item-action>
-				<v-btn v-if="guardado" icon color="primary" @click.prevent="$emit('eliminar')">
+				<v-btn v-if="guardado" icon color="secondaryD" @click.prevent="$emit('eliminar')">
 					<v-icon>fas fa-bookmark</v-icon>
 				</v-btn>
 				<v-btn v-else icon :color="guardado ? 'primary' : ''" @click.prevent="$emit('guardar')">
@@ -78,6 +94,11 @@ export default {
 .card_img {
 
 	border-radius: 8px;
+}
+
+.card_titulo:hover {
+	color: var(--v-primary-base) !important;
+	/* text-decoration: underline 1px; */
 }
 
 </style>

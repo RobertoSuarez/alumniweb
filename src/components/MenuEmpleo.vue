@@ -1,5 +1,5 @@
 <template>
-	<v-list>
+	<v-list elevation="1">
 		<v-list-item link v-for="(link, index) in links" :key="index" :to="link.to">
 
 			<v-tooltip bottom>

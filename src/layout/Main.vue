@@ -1,11 +1,12 @@
 <template>
   <v-app>
 		<v-app-bar
-					app
-					color="primary"
-					flat
-					dark
-				>
+			app
+			color="primary"
+			flat
+			dark
+			dense
+		>
 				<v-container class="py-0 fill-height">
 
 					<v-toolbar-title class="d-flex mr-3">

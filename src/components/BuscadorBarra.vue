@@ -52,7 +52,16 @@
 			</v-col>
 
 			<v-col cols="2" class="d-flex justify-center">
-				<v-btn type="submit" :loading="cargando" block color="secondary">Buscar</v-btn>
+				<v-btn 
+					type="submit" 
+					:loading="cargando" 
+					block 
+					color="secondaryD"
+					class="textP--text"
+					elevation="1"
+				>
+					Buscar
+				</v-btn>
 			</v-col>
 		</v-row>
 	</v-form>

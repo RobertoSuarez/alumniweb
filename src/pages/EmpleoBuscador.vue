@@ -1,6 +1,6 @@
 <template>
 		<v-container>
-			<BuscadorBarra></BuscadorBarra>
+			<BuscadorBarra class="mt-2"></BuscadorBarra>
 			<v-row class="mt-2">
 				<v-col sm="12" md="3">
 					<!-- Menu de opciones -->
@@ -10,12 +10,13 @@
 				</v-col>
 
 				<v-col sm="12" md="9">
-					<p class="text-h6">{{lenOfetas}} empleos encontrados</p>
+					<!-- <p class="text-h6">{{lenOfetas}} empleos encontrados</p> -->
 
 					<EmpleoList v-if="empleos.empleos.length > 0" :ofertas="empleos.empleos" masEmpleo></EmpleoList>
 					<p v-else class="text-center">No hay empleos de ese tipo</p>
 
 				</v-col>
+				
 			</v-row>
 
 
