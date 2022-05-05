@@ -4,21 +4,41 @@
 
 			<v-col cols="12" md="8">
 
-				<v-card v-if="empleo" elevation="4" :loading="cargando" :disabled="cargando">
+				<v-card v-if="empleo" elevation="2" :loading="cargando" :disabled="cargando">
 					<v-card-title class="d-flex align-start">
 						<v-avatar color="grey" size="100" tile>
 							<v-img src="/empresa.jfif" class="card_img"></v-img>
 						</v-avatar>
 						<v-spacer></v-spacer>
-						<v-btn class="my-0" outlined color="blue"><v-icon left>fas fa-share-alt</v-icon> Compartir</v-btn>
+						<v-btn class="my-0" outlined color="blue"><v-icon left>fas fa-share-alt</v-icon>Compartir</v-btn>
 					</v-card-title>
 
 					<v-card-text>
-						<div class="">{{empleo.titulo}}</div>
-						<div class="">Area: {{empleo.area.titulo}} · Subarea: {{empleo.subarea.titulo}}</div>
-						<div class="">{{ empleo.jornada }}</div>
-						<div class="">Publicado: {{ fecha }}</div>
-						<div class="text-h6" v-if="aplicado">Aplicación enviada</div>
+						<div class="text-h4 text--primary">{{empleo.titulo}}</div>
+						<div>
+							<span class="text-secondary font-weight-bold">Ciudad: </span> 
+							{{empleo.ciudad.Nombre ? empleo.ciudad.Nombre : 'No especificado'}}
+						</div>
+						<div class="">
+							<span class="text-secondary font-weight-bold">Area:</span> 
+							{{empleo.area.titulo}} · 
+							<span class="text-secondary font-weight-bold">Subarea:</span> 
+							{{empleo.subarea.titulo}}
+						</div>
+
+						<div class="">
+							<span class="text-secondary font-weight-bold">Jornada:</span> 
+							{{ empleo.jornada }}
+							</div>
+						<div class="">
+							<span class="text-secondary font-weight-bold">Publicado:</span> 
+							{{ fecha }}
+						</div>
+						<div class="">
+							<span class="text-secondary font-weight-bold">Es apto para personas con discapacidad:</span> 
+							{{ empleo.postulanteDiscapacidad ? 'Si': 'No' }}
+						</div>
+						<v-chip v-if="aplicado" color="secondary" class="textS--text px-3">Aplicado: 05/05/2022</v-chip>
 
 					</v-card-text>
 					<!-- <v-card-actions>
@@ -26,12 +46,12 @@
 					</v-card-actions> -->
 					<v-card-actions>
 						<!-- Aplicar al trabajo -->
-						<v-btn v-if="!aplicado" class="ml-2" color="secondary" large @click="aplicar">
+						<v-btn v-if="!aplicado" block class="textP--text" color="secondaryD" @click="aplicar">
 							<v-icon left>fas fa-check</v-icon>
 							Aplicar al trabajo
 						</v-btn>
 
-						<v-btn v-else text @click="deshacer">
+						<v-btn v-else text color="secondaryD" block @click="deshacer">
 							Deshacer aplicación
 						</v-btn>
 					</v-card-actions>
@@ -55,7 +75,7 @@
 			</v-col>
 
 			<v-col cols="12" md="4">
-				<div class="mb-2">
+				<!-- <div class="mb-2">
 					<v-chip
 						v-for="(tag, index) in tags"
 						:key="index"
@@ -66,10 +86,13 @@
 					>
 						{{ tag.name }}
 					</v-chip>
+				</div> -->
+
+				<div v-if="empleos.length < 1" class="d-flex justify-center">
+					<v-progress-circular  indeterminate color="primary" class="mt-10" />
 				</div>
-
-
-				<EmpleoList :ofertas="empleos.empleos"></EmpleoList>
+				<EmpleoList v-else :ofertas="empleos"></EmpleoList>
+				
 
 
 			</v-col>
@@ -95,13 +118,7 @@ export default {
 	},
 	components: { EmpleoList },
 	mounted() {
-		if (this.empleos.empleos.length < 1) {
-			this.empleosBuscar({
-				areas: [],
-				ciudades: [],
-				busquedad: ''
-			})
-		}
+		
 
 	},
 	data() {
@@ -125,10 +142,7 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions({
-			empleosBuscar: 'empleos/buscar'
-		}),
-		...mapActions('empleos', ['aplicarEmpleo', 'estadoEmpleo', 'removerAplicacion']),
+		...mapActions('empleos', ['aplicarEmpleo', 'estadoEmpleo', 'removerAplicacion', 'buscarEmpleos']),
 		async cargarEmpleo(id) {
 			this.cargando = true
 			try {
@@ -164,18 +178,23 @@ export default {
 	},
 	computed: {
 		...mapState({
-			empleos: state => state.empleos
+			empleos: state => state.empleos.empleos
 		}),
 		fecha() {
-			return helpers.fechaRelativa(this.empleo.fecha)
+			return helpers.fechaRelativa(this.empleo.publicado)
 		}
 	},
 	watch: {
 		'$route.params': {
-			handler(newValue) {
+			async handler(newValue) {
 				const { idempleo } = newValue
 				//console.log(idempleo)
-				this.cargarEmpleo(idempleo)
+				await this.cargarEmpleo(idempleo)
+
+				if (this.empleo && this.empleos.length < 1) {
+					//this.buscarEmpleos({ titulo: this.empleo.titulo, ciudad: this.empleo.ciudad.Nombre})
+					this.buscarEmpleos({ titulo: this.empleo.titulo, ciudad: ''})
+				}
 			},
 			immediate: true
 		},

@@ -87,8 +87,8 @@ export default {
 <style scoped>
 
 .card_empleo {
-	border-left: 4px solid  !important;
-	border-left-color: var(--v-primary-base) !important;
+	border-top: 2px solid var(--v-primary-base) !important;
+	
 }
 
 .card_img {
