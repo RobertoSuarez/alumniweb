@@ -199,6 +199,41 @@ const empleos = {
 				console.log(err)
 			}
 			return empleos
+		},
+		// Autocompletado para el buscador de empleos
+		async autocompletar({rootGetters}, texto ) {
+			let fraces = []
+
+			try {
+				const params = new URLSearchParams()
+				params.append('titulo', texto)
+				const response = await axios.get(`/empleos/autocompletado`, {
+					headers: rootGetters.tokenHeader.headers,
+					params: params
+				})
+				if (response.status === 200) {
+					fraces = response.data
+				}
+			} catch(err) {
+				console.log(err)
+			}
+
+			return fraces
+		},
+
+		// traer todas las provincias 
+		async getProvincias({rootGetters}) {
+			let provincias = []
+
+			try {
+				const response = await axios.get('/provincias', rootGetters.tokenHeader)
+				if (response.status === 200) {
+					provincias = response.data
+				}
+			} catch(err) {
+				console.log(err)
+			}
+			return provincias
 		}
 	},
 	getters: {
