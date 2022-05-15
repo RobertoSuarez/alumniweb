@@ -154,7 +154,7 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 
 
 export default {
-	name: 'TheNavBar',
+	name: 'TheNavBarPublic',
 	components: {  },
 	mounted() {
 
@@ -169,7 +169,7 @@ export default {
 			menuOpciones: [
 				{
 					titulo: 'Ofertas laborales',
-					nameComponent: 'Ofertas Laborales',
+					nameComponent: 'buscador',
 					icon: 'fas fa-briefcase',
 					textAction: '5',
 				},

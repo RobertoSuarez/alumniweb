@@ -19,7 +19,7 @@
 						plain
 						v-for="(item, index) in menu"
 						:key="index"
-						:to="{ name: item.pagina, params: item.params }"
+						:to="item.to"
 						text
 						>
 						{{ item.titulo }}
@@ -38,8 +38,8 @@
 
 		</v-app-bar>
 
-		<v-main class="grey lighten-3">
-			<router-view></router-view>
+	<v-main class="grey lighten-3">
+		<router-view></router-view>
     </v-main>
 
   </v-app>
@@ -59,17 +59,11 @@ export default {
 		this.menu = [
 			{
 				titulo: 'Empleos',
-				pagina: 'Ofertas Laborales',
-				params: { }
+				to: { name: 'buscador', params: {}}
 			},
 			{
 				titulo: 'Perfil',
-				pagina: 'perfil',
-				params: { iduser: this.user.id }
-			},
-			{
-				titulo: 'Noticias',
-				pagina: 'noticias'
+				to: { name: 'perfil', params: { iduser: this.user.id } }
 			}
 		]
 	},

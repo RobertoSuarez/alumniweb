@@ -47,7 +47,7 @@ export default {
 				{
 					titulo: 'Gestionar anuncios de empleos',
 					icon: 'fas fa-briefcase',
-					to: { name: 'noticias' }
+					to: { name: 'publicar empleo' }
 				}
 			]
 		}
