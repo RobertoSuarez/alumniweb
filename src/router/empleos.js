@@ -1,7 +1,7 @@
 import EmpleoBuscador from '../pages/EmpleoBuscador'
 import Main from '../layout/Main'
 import Empresas from '../pages/BaseEmpresa'
-import BasePublicarEmpleo from '../pages/BasePublicarEmpleo'
+import PublicarEmpleo from '../pages/PublicarEmpleo'
 import EmpleoCompleto from '../pages/EmpleoCompleto'
 import MisEmpleos from '../pages/MisEmpleos'
 import EmpleosGuardados from '../components/EmpleosGuardados'
@@ -29,7 +29,7 @@ const routes = [
             {
                 path: 'publicar_empleo',
                 name: 'publicar empleo',
-                component: BasePublicarEmpleo
+                component: PublicarEmpleo
             },
             {
                 path: ':idempleo',
