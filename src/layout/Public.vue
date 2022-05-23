@@ -14,23 +14,15 @@
 
 				<v-spacer></v-spacer>
 
-				<v-btn color="info" dark @click="abrirModal('login')">Inciar Sesión</v-btn>
+				<v-btn color="info" dark @click="$router.push({name: 'login'})">Inciar Sesión</v-btn>
 			</v-container>
 
 
 		</v-app-bar>
 
-		<v-overlay
-			@click="clickOverlay"
-			:value="overlay"
-			:dark="false"
-		>
-			<TheLogin v-if="modal === 'login'" :registrar="abrirModal" ></TheLogin>
-			<TheRegister v-if="modal === 'registrar'" :abrirModal="abrirModal"></TheRegister>
-		</v-overlay>
 
 		<v-main>
-			<router-view @registrar="abrirModal('registrar')"></router-view>
+			<router-view></router-view>
 		</v-main>
 
 		<TheFooter></TheFooter>
@@ -39,13 +31,11 @@
 
 <script>
 import TheFooter from '../components/TheFooter.vue'
-import TheLogin from '../components/TheLogin.vue'
-import TheRegister from '../components/TheRegister.vue'
 
 import { mapState } from 'vuex'
 
 export default {
-	components: { TheFooter, TheLogin, TheRegister },
+	components: { TheFooter },
 	data() {
 		return {
 			overlay: false,

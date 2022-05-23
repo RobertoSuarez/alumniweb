@@ -235,6 +235,8 @@ const empleos = {
 			}
 			return provincias
 		}
+
+		// traer ciudades en base a la provincia selecionada
 	},
 	getters: {
 

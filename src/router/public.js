@@ -16,18 +16,22 @@ export const publicRoutes = [
         children: [
             {
                 path: '',
-                name: 'incio',
-                component: Inicio
+                name: 'inicio',
+                component: Inicio,
+                children: [
+                    {
+                        path: 'login',
+                        name: 'login',
+                        component: Login
+                    },
+                    {
+                        path: 'register',
+                        name: 'register',
+                        component: Register
+                    }
+                ]
             },
-            {
-                path: 'login',
-                name: 'login',
-                component: Login
-            },
-            {
-                path: 'register',
-                component: Register
-            }
+            
         ]
     },
 ]

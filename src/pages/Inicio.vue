@@ -1,33 +1,59 @@
 <template>
 	<div>
-
-		<v-sheet color="primary" dark class="py-15">
+		<v-img src="../assets/adrien-olichon-nnAGd3PIB08-unsplash.jpg" class="d-flex align-center banner">
 			<v-container>
-				<v-row justify="space-between">
-					<v-col col="6" md="5">
-						<span class="text-h3 my-5 titulo">Sistema de bolsa de empleo UTEQ</span>
-						<p class="mt-5 text-justify texto">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa sapiente neque atque eius reprehenderit maxime non quis officia itaque, quasi ea, distinctio id illo sint iste asperiores autem tempore amet?</p>
+				<v-row align="center">
+					<v-col col="5">
+						<span class="titulo-1 texto-gray-1 my-5">Sistema de bolsa de empleo UTEQ</span>
+						<p class="texto-1 mt-5 texto-gray-1">
+							Encuentra y publica empleos de manera facil y gratuita.								
+						</p>
 						
 						<v-btn 
+							class="mt-10"
 							block 
 							color="info" 
 							x-large 
-							@click="$emit('registrar')"
+							@click="$router.push({name: 'register'})"
 						>
 								Registrarse
 						</v-btn>
 					</v-col>
 
-					<v-col col="6" md="7" class="d-flex justify-center align-center">
-						<v-img
-							src="../assets/uteqlogo.png"
-							max-width="300px"
-							max-height="350px"
-						></v-img>
+					<v-col col="6" offset="1" class="d-flex justify-center align-center">
+						<v-img src="../assets/Allura Exploring on Laptopbanner.png" height="300px" contain></v-img>
 					</v-col>
 				</v-row>
 			</v-container>
-		</v-sheet>
+			
+		</v-img>
+
+		<!-- en esta parte se coloca el login o register-->
+		<router-view></router-view>
+		
+
+		<v-container class="mt-5">
+			<v-divider></v-divider>
+		</v-container>
+
+
+	
+		<v-container class="mt-5">
+			<v-row align="center">
+				<v-col cols="6">
+					<v-img src="../assets/kelly-sikkema-LNlzd-Y7orw-unsplash.jpg" height="300px" class="img-seccion"></v-img>
+				</v-col>
+				<v-col cols="6">
+					<p class="titulo-1 texto-gray-1">
+						Publica un empleo de forma sencilla y profesional
+					</p>
+					<p class="texto-1 texto-gray-1">
+						Simplemente llenando cada uno de los campos del formulario podras publicar tu oferta de empleo y esta llegara a miles de personas.
+					</p>
+				</v-col>
+			</v-row>
+		</v-container>
+	
 
 
 		<v-sheet class="my-16">
@@ -96,25 +122,13 @@ export default {
 </script>
 
 <style scoped>
-.titulo {
-	line-height: 1.2em;
-}
-
-.texto {
-	line-height: 1.8em;
-}
-
-.section-main {
-	margin-top: 5em;
-	margin-bottom: 8em;
-}
 
 .banner {
-	height: 500px;
+	height: 70vh;
 }
 
-.publicar {
-	margin: 5em 0em;
-	padding: 3em 0em;
+.img-seccion {
+    border-radius: 8px;
 }
+
 </style>

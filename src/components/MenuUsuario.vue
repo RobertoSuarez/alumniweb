@@ -61,7 +61,7 @@ export default {
 		cerrarSesion() {
 			this.signOut()
 			this.$router.push({
-				name: 'incio'
+				name: 'inicio'
 			})
 		}
 	},

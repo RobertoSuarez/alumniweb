@@ -95,6 +95,7 @@
 							label="Provincia"
 							outlined
 							dense
+							:items="provincias"
 						></v-select>
 					</v-col>
 					<v-col md="6" class="pt-2">
@@ -170,10 +171,20 @@ export default {
 				empresaid: 1,
 
 			},
+			provincias: [],
+			ciudades: [],
 		}
 	},
+	mounted() {
+		const cargarDatos = async () => {
+			let pros = []
+			pros = await this.getProvincias()
+			this.provincias = pros.map(p => p.Nombre)
+		}
+		cargarDatos()
+	},
 	methods: {
-		...mapActions('empleos', ['crearEmpleo']),
+		...mapActions('empleos', ['crearEmpleo', 'getProvincias']),
 		async crear() {
 			let data = this.crearEmpleo(this.empleo)
 			if (data) {
