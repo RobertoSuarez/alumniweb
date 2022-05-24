@@ -20,11 +20,11 @@
 				<v-list-item-subtitle 
 					class="text--secondary"
 				>
-					{{oferta.puesto}}
+					<span class="text--primary">Puesto: </span> {{oferta.puesto}}
 				</v-list-item-subtitle>
 
 				<v-list-item-subtitle>
-					{{oferta.ciudad.Nombre ? oferta.ciudad.Nombre: 'No se especifico'}}
+					<span class="text--primary">Ciudad: </span> {{oferta.ciudad.Nombre ? oferta.ciudad.Nombre: 'No se especifico'}}
 				</v-list-item-subtitle>
 				<v-list-item-subtitle>
 					<span class="text--primary">Area: </span> {{oferta.area.titulo}} 
@@ -32,7 +32,8 @@
 				</v-list-item-subtitle>
 				<!-- <v-list-item-subtitle>{{oferta.subarea.titulo}}</v-list-item-subtitle> -->
 				<v-list-item-subtitle>
-					Publicado: {{fechaRelativa }}
+					<span class="text--primary">Publicado: </span>
+					{{fechaRelativa }}
 				</v-list-item-subtitle>
 			</v-list-item-content>
 			<v-list-item-action>

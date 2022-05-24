@@ -31,7 +31,7 @@ export default new Vuetify({
 				info: '#0086E0',
 				success: '#22B54B',
 				warning: '#DD8706',
-				background: colors.grey.lighten4,
+				background: colors.grey.lighten2,
 			},
 			dark: {
 				primary: '#009549',

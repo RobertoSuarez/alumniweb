@@ -38,7 +38,7 @@
 
 		</v-app-bar>
 
-	<v-main class="grey lighten-3">
+	<v-main class="grey lighten-4">
 		<router-view></router-view>
     </v-main>
 

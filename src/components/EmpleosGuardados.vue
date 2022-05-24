@@ -5,12 +5,12 @@
         <v-card-title>Mis Empleos</v-card-title>
         <v-card-actions class="ml-2">
             <v-chip 
-                class="mr-3"
+                class="mr-1"
                 link
                 v-for="(chip, index) in chips" 
                 :key="index" 
                 @click="seleccionar(chip.name)"
-                :color="dato === chip.name ? 'primary': ''"
+                :color="dato === chip.name ? 'success': ''"
             >
                 {{ chip.name }}
             </v-chip>

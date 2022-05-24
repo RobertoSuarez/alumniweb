@@ -1,8 +1,8 @@
 <template>
 	<v-container>
 		<div class="my-5">
-			<div class="text-h3 text--primary">Publicar un empleo</div>
-			<div class="text-h5 text--secondary">Publica un empleo de forma sencilla</div>
+			<div class="titulo-1 texto-gray-1">Publicar un empleo</div>
+			<div class="texto-1 texto-gray-1">Publica un empleo de forma sencilla</div>
 		</div>
 
 		<v-row>
@@ -129,6 +129,7 @@
 				text
 				large
 				class="mr-3"
+				@click="cancelar"
 			>
 				Cancelar
 			</v-btn>
@@ -200,6 +201,9 @@ export default {
 		},
 		atras() {
 			this.paso--
+		},
+		cancelar() {
+			this.$router.push({ name: 'buscador'})
 		}
 	}
 }

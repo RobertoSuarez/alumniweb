@@ -48,7 +48,10 @@
 					outlined 
 					hide-details
 					dense 
-					:items="provincias">
+					:items="provincias"
+					item-text="Nombre"
+					return-object
+				>
 				</v-select>
 			</v-col>
 
@@ -77,7 +80,11 @@ export default {
 		return {
 			texto: '',
 			ciudad: '',
-			provincia: '',
+			provincia: {
+				ID: 0,
+				Nombre: 'Todas las provincias',
+				ciudades: null
+			},
 			provincias: [],
 			palabras: ['Programador', 'Golang', 'JavaScript'],
 			cargando: false,
@@ -87,13 +94,16 @@ export default {
 	mounted() {
 		this.buscarEmpleos({
 			titulo: this.texto,
-			ciudad: this.ciudad
+			ciudad: this.ciudad,
+			provincia_id: 1,
 		})
 		
 		const pro = async () => {
-			let data = await this.getProvincias()
-			this.provincias = data.map(p => p.Nombre)
-			console.log(this.provincias)
+			this.provincias = await this.getProvincias()
+			this.provincias.unshift({ID: 0, Nombre: 'Todas las provincias', ciudades: null})
+			this.provincia = this.provincias[0]
+			//this.provincias = data //data.map(p => p.Nombre)
+			//console.log(this.provincias)
 		}
 		
 		pro()
@@ -106,7 +116,8 @@ export default {
 			//console.log('Buscar empleo en la api rest')	
 			await this.buscarEmpleos({
 				titulo: this.texto,
-				ciudad: this.ciudad
+				ciudad: this.ciudad,
+				provincia_id: this.provincia.ID,
 			})
 			this.cargando = false
 

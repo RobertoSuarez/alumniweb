@@ -10,6 +10,7 @@ const empleos = {
 		page_size: 10,
 		titulo: '',
 		ciudad: '',
+		provincia_id: 0,
 		publicados: [],
 	}),
 	mutations: {
@@ -20,10 +21,11 @@ const empleos = {
 			//console.log("set empleos from api rest")
 			state.empleos = payload
 		},
-		setParametros(state, { titulo, ciudad, page}) {
+		setParametros(state, { titulo, ciudad, page, provincia_id}) {
 			state.titulo = titulo
 			state.ciudad = ciudad
 			state.page = page
+			state.provincia_id = provincia_id
 		},
 		addPage(state) {
 			state.page++
@@ -41,7 +43,7 @@ const empleos = {
 		incrementarContador({ commit }) {
 			commit('incrementar')
 		},
-		async buscarEmpleos({ state, commit, rootGetters }, { titulo, ciudad }) {
+		async buscarEmpleos({ state, commit, rootGetters }, { titulo, ciudad, provincia_id=1 }) {
 			//console.log('Buscando empleo con la api', state.contador)
 			//console.log(payload)
 			// Establecemos los parametros de busquedad, que nos 
@@ -49,7 +51,8 @@ const empleos = {
 			commit('setParametros', {
 				titulo,
 				ciudad,
-				page: 1
+				page: 1,
+				provincia_id
 			})
 
 			try {
@@ -58,6 +61,7 @@ const empleos = {
 				params.append('ciudad', ciudad)
 				params.append('page', state.page)
 				params.append('page_size', state.page_size)
+				params.append('provincia_id', state.provincia_id)
 				// params.append('ciudades', payload.ciudades)
 				// params.append('areas', payload.areas)
 

@@ -44,11 +44,11 @@ export default {
 					icon: 'fas fa-bullhorn',
 					to: { name: 'publicar empleo' }
 				},
-				{
-					titulo: 'Gestionar anuncios de empleos',
-					icon: 'fas fa-briefcase',
-					to: { name: 'publicar empleo' }
-				}
+				// {
+				// 	titulo: 'Gestionar anuncios de empleos',
+				// 	icon: 'fas fa-briefcase',
+				// 	to: { name: 'publicar empleo' }
+				// }
 			]
 		}
 	}
