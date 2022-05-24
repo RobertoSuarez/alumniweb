@@ -6,6 +6,7 @@ import EmpleoCompleto from '../pages/EmpleoCompleto'
 import MisEmpleos from '../pages/MisEmpleos'
 import EmpleosGuardados from '../components/EmpleosGuardados'
 import EmpleosPublicados from '../components/EmpleosPublicados'
+import EmpleoPublicadoDetalles from '../pages/EmpleoPublicadoDetalles'
 
 
 // Definimos las rutas de empleos
@@ -54,6 +55,11 @@ const routes = [
                         component: EmpleosPublicados,
                     },
                 ]
+            },
+            {
+                path: ':id/publicado-detalles',
+                name: 'publicado-detalles',
+                component: EmpleoPublicadoDetalles
             }
         ]
     }

@@ -49,7 +49,9 @@
 				</v-btn>
 			</v-form>
 
-			<p class="mt-2">No tienes cuenta? <a class="green--text" @click.prevent="registrar('registrar')">Crear cuenta</a></p>
+			<p class="mt-2">
+				No tienes cuenta? <span class="green--text" @click="$router.push({ name: 'register'})">Crear cuenta</span>
+			</p>
 
 		</v-card-text>
 

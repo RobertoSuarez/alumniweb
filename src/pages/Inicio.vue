@@ -124,7 +124,7 @@ export default {
 <style scoped>
 
 .banner {
-	height: 70vh;
+	height: 75vh;
 }
 
 .img-seccion {

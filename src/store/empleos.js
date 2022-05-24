@@ -10,6 +10,7 @@ const empleos = {
 		page_size: 10,
 		titulo: '',
 		ciudad: '',
+		publicados: [],
 	}),
 	mutations: {
 		incrementar(state) {
@@ -31,6 +32,9 @@ const empleos = {
 			const todosEmpleos = [...state.empleos, ...payload]
 			//console.log('Todos los empleos', todosEmpleos)
 			state.empleos = todosEmpleos
+		},
+		setPublicados(state, payload) {
+			state.publicados = payload
 		}
 	},
 	actions: {
@@ -234,9 +238,41 @@ const empleos = {
 				console.log(err)
 			}
 			return provincias
-		}
+		},
 
 		// traer ciudades en base a la provincia selecionada
+
+		// Traer los empleos pubicados
+		async getEmpleosPublicados({ commit, rootGetters}) {
+			let publicados = []
+
+			try {
+				const response = await axios.get('/empleos/publicados', rootGetters.tokenHeader)
+				if (response.status === 200) {
+					publicados = response.data
+				}
+			} catch(err) {
+				console.log(err)
+			}
+			
+			commit('setPublicados', publicados)
+		},
+
+		// Traer un empleo por el id
+		async getEmpleoEmpleoByID({rootGetters}, id) {
+			let empleo = {}
+
+			try {
+				const response = await axios.get(`/empleos/${id}`, rootGetters.tokenHeader)
+				if (response.status === 200) {
+					empleo = response.data
+				}
+			} catch(err) {
+				console.log(err)
+			}
+			
+			return empleo
+		}
 	},
 	getters: {
 
