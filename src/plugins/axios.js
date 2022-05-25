@@ -1,4 +1,6 @@
 import axios from 'axios'
+import router from '../router/router'
+import store from '../store/index'
 
 console.log(process.env.VUE_APP_API_URL)
 
@@ -26,7 +28,14 @@ axioshttp.interceptors.response.use(function(response) {
 	return response
 }, function (error) {
 	// Cualquier código de estado que se encuentre fuera del rango de 2xx hace que esta función se active
-     // Hacer algo con error de respuesta
+	// Hacer algo con error de respuesta
+	if (401 === error.response.status) {
+		console.log('El token fallo, se debe cerrar todo')
+		store.dispatch('signOut')
+		router.push({name: 'inicio'})
+	}
+
+
 	return Promise.reject(error);
 })
 
