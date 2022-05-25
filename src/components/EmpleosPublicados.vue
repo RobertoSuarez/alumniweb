@@ -9,16 +9,16 @@
           v-for="(publicado, index) in publicados" 
           :key="index" 
           link 
-          :to="{name: 'publicado-detalles', params: {id: publicado.id }}"
+          :to="{name: 'publicado-detalles', params: {id: publicado.Empleo.ID }}"
         >
         
           <v-list-item-avatar size="70">
-            <v-img :src="publicado.img"></v-img>
+            <v-img :src="publicado.Empleo.img"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>{{ publicado.titulo }}</v-list-item-title>
-            <v-list-item-subtitle>{{ publicado.ciudad.Nombre}}</v-list-item-subtitle>
-            <v-list-item-subtitle>{{ publicado.activo ? 'Si se aceptan solicitudes' : 'No se aceptan solicitudes' }}</v-list-item-subtitle>
+            <v-list-item-title>{{ publicado.Empleo.Titulo }}</v-list-item-title>
+            <v-list-item-subtitle>Ciudad</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ publicado.Empleo.activo ? 'Si se aceptan solicitudes' : 'No se aceptan solicitudes' }}</v-list-item-subtitle>
             <v-list-item-subtitle>{{ publicado.solicitudes }} solicitudes</v-list-item-subtitle>
 
           </v-list-item-content>
