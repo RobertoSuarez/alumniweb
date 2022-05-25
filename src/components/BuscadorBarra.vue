@@ -95,7 +95,7 @@ export default {
 		this.buscarEmpleos({
 			titulo: this.texto,
 			ciudad: this.ciudad,
-			provincia_id: 1,
+			provincia_id: 0,
 		})
 		
 		const pro = async () => {
@@ -104,6 +104,12 @@ export default {
 			this.provincia = this.provincias[0]
 			//this.provincias = data //data.map(p => p.Nombre)
 			//console.log(this.provincias)
+
+			this.buscarEmpleos({
+				titulo: this.texto,
+				ciudad: this.ciudad,
+				provincia_id: this.provincia.ID,
+			})
 		}
 		
 		pro()

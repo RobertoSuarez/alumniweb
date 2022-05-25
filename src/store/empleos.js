@@ -43,7 +43,7 @@ const empleos = {
 		incrementarContador({ commit }) {
 			commit('incrementar')
 		},
-		async buscarEmpleos({ state, commit, rootGetters }, { titulo, ciudad, provincia_id=1 }) {
+		async buscarEmpleos({ state, commit, rootGetters }, { titulo, ciudad, provincia_id }) {
 			//console.log('Buscando empleo con la api', state.contador)
 			//console.log(payload)
 			// Establecemos los parametros de busquedad, que nos 
